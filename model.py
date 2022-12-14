@@ -16,34 +16,27 @@ class User(db.Model):
     username = db.Column(db.String(20), nullable=False, unique=True)
     email = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
-    
-    # recipes = db.relationship("Recipe", back_populates="user")
-    # favorites = db.relationship("Favorite", back_populates="user")
-    # shoppinglists = db.relationship("Shoppinglist", back_populates="user")
 
     def __repr__(self):
         return f'<User user_id={self.user_id} username={self.username} email={self.email}>'
 
 class Recipe(db.Model):
-    """A custom recipe."""    
+    """A searched recipe."""    
     
     __tablename__ = "recipes"
     
     recipe_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
-    recipe_name = db.Column(db.Text)
-    ingredients_need = db.Column(db.String)
+    recipe_api_id = db.Column(db.Integer, nullable=False, unique=True)
+    recipe_name = db.Column(db.String)
+    ingredients = db.Column(db.String)
     image = db.Column(db.String)
-    steps = db.Column(db.String)
+    steps = db.Column(db.Text)
     total_cook_time = db.Column(db.String)
     
-    user = db.relationship("User", backref="recipes")
-    ingredients = db.relationship("Ingredient", secondary="recipe_ingredients", back_populates="recipes")
-    
     def __repr__(self):
-        return f'<Recipe recipe_id={self.recipe_id} recipe_name={self.recipe_name} steps={self.steps}>'
+        return f'<Recipe recipe_id={self.recipe_id} recipe_api_id={self.recipe_api_id} recipe_name={self.recipe_name} ingredients={self.ingredients} steps={self.steps}>'
     
 class Favorite(db.Model):
     """Saved to favorite recipe."""    
@@ -53,10 +46,14 @@ class Favorite(db.Model):
     fav_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
+    recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"), nullable=False)
+    
+    user = db.relationship("User", backref="favorites")
+    recipe = db.relationship("Recipe", backref="favorites")
 
-    def __repr__(self):
-        return f'<Favorite fav_id={self.fav_id}>'
+    # def __repr__(self):
+    #     return f'<Favorite fav_id={self.fav_id}>'
 
 class Shoppinglist(db.Model):
     """A shopping list."""    
@@ -66,28 +63,13 @@ class Shoppinglist(db.Model):
     shoppinglist_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
     add_date = db.Column(db.DateTime)
     
     user = db.relationship("User", backref="shoppinglists")
 
     def __repr__(self):
         return f'<Shoppinglist shoppinglist_id={self.shoppinglist_id} add_date={self.add_date}>'
-
-class Ingredient(db.Model):
-     """An ingredient."""
-     __tablename__ = "ingredients"
-     
-     ingredient_id = db.Column(db.Integer,
-                        autoincrement=True,
-                        primary_key=True)
-     ingredient_name = db.Column(db.String)
-     
-     recipes = db.relationship("Recipe", secondary="recipe_ingredients", back_populates="ingredients")
-     
-     def __repr__(self):
-        return f'<Ingredient ingredient_id={self.ingredient_id} ingredient_name={self.ingredient_name}>'
-     
 
 class Item(db.Model):
     """A shopping list item."""    
@@ -97,25 +79,15 @@ class Item(db.Model):
     item_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True)
-    ingredient_id = db.Column(db.Integer, db.ForeignKey("ingredients.ingredient_id"))
-    shoppinglist_id = db.Column(db.Integer, db.ForeignKey("shoppinglists.shoppinglist_id"))
-    ingredients = db.Column(db.String)
+    shoppinglist_id = db.Column(db.Integer, db.ForeignKey("shoppinglists.shoppinglist_id"), nullable=False)
+    item = db.Column(db.String)
     amount = db.Column(db.String)
     is_checked = db.Column(db.Boolean)
     
     shoppinglist = db.relationship("Shoppinglist", backref="items")
     
     def __repr__(self):
-        return f'<Recipe recipe_id={self.recipe_id} recipe_name={self.recipe_name} steps={self.steps}>'
-
-class RecipeIngredient(db.Model):
-    """“glue between recipes and ingredients."""
-
-    __tablename__ = "recipe_ingredients"
-
-    recipe_ingredient_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
-    ingredient_id = db.Column(db.Integer, db.ForeignKey("ingredients.ingredient_id"))
+        return f'<Item item_id={self.item_id} item={self.item} amount={self.amount} is_checked={self.is_checked}>'
     
 def connect_to_db(flask_app, db_uri="postgresql:///magicingredients", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
