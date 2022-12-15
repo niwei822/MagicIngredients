@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.username }}'s Page{% endblock %}
+
+{% block body %}
+<h1>Welcome, {{ user.username }} !</h1>
+<h2>I want to</h2>
+  <ul>
+    <li><a href="/recipes">View my favorite recipes</a></li>
+    <li><a href="/shoppinglists">View my shoppinglists</a></li>
+  </ul>
+{% endblock %}
