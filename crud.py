@@ -1,7 +1,7 @@
 """CRUD operations."""
 
 from model import db, User, Recipe, Favorite, Shoppinglist, Item, connect_to_db
-
+from datetime import datetime
 """User CRUD operations."""
 
 def create_user(username, email, password):
@@ -15,7 +15,6 @@ def get_users():
     """Return all users."""
 
     return User.query.all()
-
 
 def get_user_by_id(user_id):
     """Return a user by primary key."""
@@ -48,12 +47,10 @@ def create_recipe(recipe_api_id, recipe_name, ingredients, image, steps, total_c
 
     return recipe
 
-
 def get_recipes():
     """Return all recipes."""
 
     return Recipe.query.all()
-
 
 def get_recipe_by_id(recipe_id):
     """Return a recipe by primary key."""
@@ -64,7 +61,7 @@ def get_recipe_by_api_id(recipe_api_id):
     """Return a recipe by Spoonacular recipe id."""
 
     return Recipe.query.filter_by(recipe_api_id=recipe_api_id).first()
-
+#not sure need this?
 def create_favorite(user_id, recipe_id):
     """Create and return a new rating."""
 
@@ -72,21 +69,73 @@ def create_favorite(user_id, recipe_id):
 
     return fav
 
+def get_favorite_by_user(user_id):
+     """Return all favorite recipes by user."""
+     
+     return Favorite.query.filter(Favorite.user_id==user_id).all()
+ 
+def get_favorite_by_recipe(recipe_id):
+    """Return a favorite recipe by recipe_id."""
+    
+    return Favorite.query.filter_by(recipe_id=recipe_id).first()
 
+def delete_favorite_by_recipeid(recipe_id):
+    """Delete a recipe from favorites"""
+    
+    recipe = Favorite.query.filter(Favorite.recipe_id == recipe_id).first()
+    db.session.delete(recipe)
+    db.session.commit()
 
+"""Shoppinglist CRUD operations."""
 
-def create_rating(user, movie, score):
-    """Create and return a new rating."""
+def create_shoppinglist(user_id, add_date):
+    """Create and return a new shoppinglist."""
 
-    rating = Rating(user=user, movie=movie, score=score)
+    shoppinglist = Shoppinglist(user_id=user_id, add_date=datetime.now)
 
-    return rating
+    return shoppinglist
 
+def get_shoppinglist_by_user(user_id):
+     """Return all favorite recipes by user."""
+     
+     return Shoppinglist.query.filter(Shoppinglist.user_id==user_id).all()
 
-def update_rating(rating_id, new_score):
-    """ Update a rating given rating_id and the updated score. """
-    rating = Rating.query.get(rating_id)
-    rating.score = new_score
+"""item CRUD operations."""
+
+def create_item(shoppinglist_id, item, amount, is_checked):
+    """Create and return a new shoppinglist item."""
+
+    item = Item(
+        shoppinglist_id=shoppinglist_id,
+        item=item,
+        amount=amount,
+        is_checked=is_checked,
+    )
+
+    return item
+
+def get_items():
+    """Return all shoppinglist items."""
+
+    return Item.query.all()
+
+def update_item(item_id, new_item, new_amount, new_ischecked):
+    """ Update a shoppinglist item given item_id and the updated information. """
+    
+    item_update = Item.query.get(item_id)
+    item_update.item = new_item
+    item_update.amount = new_amount
+    item_update.is_checked = new_ischecked
+    db.session.commit()
+    return
+
+def delete_item(item_id):
+    """Delete a shopplinglist item"""
+    
+    item = Item.query.get(item_id)
+    db.session.delete(item)
+    db.session.commit()
+    return
 
 if __name__ == "__main__":
     from server import app
