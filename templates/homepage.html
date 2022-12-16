@@ -1,41 +1,52 @@
-{% extends 'base.html' %}
-{% block title %}Magic Ingredients Home{% endblock %}
+<!doctype html>
+<html>
+  <head>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    
+    <title>Magic Ingredients</title>
+  </head>
+  <body>
+  <div class="wrapper">
+    <div class="container main">
+      <div class="row">
+        <div class="col-md-6 side-image">
+          <!------Image-->
+          <div class="text">
+            <p>Welcome to Magic Ingredients</p>
+            <p>Cook what you have, make a shopping list, and have fun!</p>
+          </div>
+        </div>
+        <div class="col-md-6 right">
+          <form action="/users" method="POST">
+          <div class="input-box">
+            <header>Create an Account</header>
+            <div class="input-field">
+                <input type="text" class="input" name="username" required autocomplete="off">
+                <label for="username">Username</label>
+              </div>
+              <div class="input-field">
+                <input type="text" class="input" name="email" required autocomplete="off">
+                <label for="email">Email</label>
+              </div>
+              <div class="input-field">
+                <input type="password" class="input" name="password" required>
+                <label for="password">Password</label>
+              </div>
+              <div class="input-field">
+                <input type="submit" class="submit" value="Sign Up">
+              </div>
+              <div class="signin">
+                <span>Already have an account? <a href="/login">Log in here</a></span>
+              </div>
+            </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
 
-{% block body %}
-  <h1>Welcome to Magic Ingredients!</h1>
 
-  
-
-  <h2>Create an Account</h2>
-  <form action="/users" method="POST">
-    <p>
-      Username <input type="text" name="username">
-      </p>
-    <p>
-      Email <input type="text" name="email">
-    </p>
-
-    <p>
-      Password <input type="password" name="password">
-    </p>
-
-    <p>
-      <input type="submit">
-    </p>
-  </form>
-
-  <h2>Log In</h2>
-  <form action="/login" method="POST">
-    <p>
-      Email <input type="text" name="email">
-    </p>
-
-    <p>
-      Password <input type="password" name="password">
-    </p>
-
-    <p>
-      <input type="submit">
-    </p>
-  </form>
-{% endblock %}

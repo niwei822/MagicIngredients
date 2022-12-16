@@ -3,8 +3,12 @@
 {% block title %}{{ user.username }}'s Page{% endblock %}
 
 {% block body %}
-<h1>Welcome, {{ user.username }} !</h1>
-<h2>I want to</h2>
+<span>Welcome, {{ user.username }} !</span>
+<form action="/logout" method="POST">
+  <button class='btn btn-success pull-right'>
+    Log out</button>
+  </form>
+<h3>I want to</h3>
   <ul>
     <li><a href="/recipes">View my favorite recipes</a></li>
     <li><a href="/shoppinglists">View my shoppinglists</a></li>

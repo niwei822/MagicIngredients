@@ -37,20 +37,31 @@ def register_user():
         db.session.add(user)
         db.session.commit()
         flash("Account created! Please log in.")
-    return redirect("/")
+    return redirect("/login")
 
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login_user():
     """Login user."""
-    email = request.form.get("email")
-    password = request.form.get("password")
-    user = crud.get_user_by_email(email)
-    if user and user.password == password:
-        session["user_email"] = user.email
-        flash(f"Welcome back. {user.username}")
-        return show_user(user.user_id)
+    if request.method == "GET":
+        return render_template('login.html')
     else:
-        flash("Wrong combination.")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        print(f"EMAIL IS {email}")
+        user = crud.get_user_by_email(email)
+        if user and user.password == password:
+            session["user_email"] = user.email
+            flash(f"Welcome back. {user.username}")
+            return show_user(user.user_id)
+        else:
+            flash("Wrong combination.")
+            return redirect("/login")
+        
+@app.route("/logout", methods=["POST"])
+def process_logout():
+    """Delete session and logout user"""
+    session.clear()
+    
     return redirect("/")
 
 
