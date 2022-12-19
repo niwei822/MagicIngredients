@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ user.username }}'s Page{% endblock %}
+
+{% block body %}
+<span>Welcome, {{ user.username }} !</span>
+<h2 class="recipe_search">Show me what to cook!</h2>
+
+<div class="container">
+    <div class="row justify-content-center" style="margin-bottom: 20px">
+        <div class="col-md-12" style="text-align:center">
+            <h3>In my pantry, I have the following items</h3>
+            <form action="/search" method="POST">
+                <input type="text" name="search" placeholder="Use , to seperate each ingredient">
+                <input class="button" type="submit" value="Go!">
+            </form>
+        </div>
+    </div>
+</div>
+<div class="recepie_area">
+    <div class="container">
+        <div class="row">
+            <ul class="single-receipe-area">
+                {% for recipe in recipes %}
+                <div class="card text-center">
+                    <div class="col-xl-4 col-lg-4 col-md-6">
+                        <img src="{{recipe['image']}}">
+                        <div class="recipe-content">
+                            <a href="/recipe?id={{ recipe['id'] }}">{{ recipe['title'] }}</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
