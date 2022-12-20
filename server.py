@@ -75,6 +75,7 @@ def user_profile(user_id):
     user = crud.get_user_by_id(user_id)
     #fav_recipes = crud.get_favorite_by_user(user_id)
     #shoppinglist = crud.get_shoppinglist_by_user(user_id)
+    """Show random recipes"""
     endpoint = '/random'
     final_url = url + endpoint
     data = {"number":"9", "apiKey": API_KEY}
@@ -84,14 +85,6 @@ def user_profile(user_id):
     # print(shoppinglist)
 
     return render_template('user_home.html', user=user, user_id=session['user_id'], recipes=response)
-
-@app.route('/user_home/<user_id>')
-def show_random_recipes():
-    """show random recipes"""
-    
-    if response:
-        return render_template('user_home.html', user_id=session['user_id'], recipes=response)
-
 
 @app.route('/search', methods=["POST"])
 def search_recipes():
@@ -106,8 +99,36 @@ def search_recipes():
     if response:
         return render_template('recipe_results.html', user_id=session['user_id'], recipes=response)
     
-
-
+@app .route('/recipe')
+def show_recipe_detail():
+    """Display recipe detail when click the recipe name."""
+    recipe_id = request.args['id']
+    endpoint = f"/{recipe_id}/information"
+    final_url = url + endpoint
+    print(final_url)
+    data = {"includeNutrition":"false", "apiKey": API_KEY}
+    response = requests.get(final_url, headers=HEADERS, params=data).json()
+    print(response)
+    cook_time = response['readyInMinutes']
+    recipe_title = response['title']
+    recipe_image = response['image']
+    source_name = response['sourceName']
+    source_url = response['sourceUrl']
+    ingredient_list = response['extendedIngredients']
+    ingredients = []
+    for ingredient in ingredient_list:
+        ingredients.append(ingredient['original'])
+    
+    analyzed_instructions = response['analyzedInstructions']
+    if not analyzed_instructions:
+        steps = f"Read the detailed instructions on {source_name} - Click original link below"
+    else:
+        instructions = analyzed_instructions[0]['steps']
+        steps = []
+        for step in instructions:
+            steps.append(step['step'])
+            
+    return render_template('recipe_detail.html', user_id=session['user_id'], recipe=response,cook_time=cook_time, source_url=source_url, recipe_title=recipe_title, recipe_image=recipe_image,ingredients=ingredients, steps=steps)
 
 
 
