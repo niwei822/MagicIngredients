@@ -63,7 +63,7 @@ def get_recipe_by_api_id(recipe_api_id):
     return Recipe.query.filter_by(recipe_api_id=recipe_api_id).first()
 #not sure need this?
 def create_favorite(user_id, recipe_id):
-    """Create and return a new rating."""
+    """Create and return a favorite."""
 
     fav = Favorite(user_id=user_id, recipe_id=recipe_id)
 

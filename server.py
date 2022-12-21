@@ -56,6 +56,7 @@ def login_user():
         if user and user.password == password:
             session["user_email"] = user.email
             session["user_id"] = user.user_id
+            session["user_name"] = user.username
             flash(f"Welcome back. {user.username}")
             return redirect(f"/user_home/{session['user_id']}")
         else:
@@ -80,7 +81,7 @@ def user_profile(user_id):
     final_url = url + endpoint
     data = {"number":"9", "apiKey": API_KEY}
     response = requests.get(final_url, headers=HEADERS, params=data).json()['recipes']
-    print(response)
+    # print(response)
     # print(fav_recipes[0].recipe)
     # print(shoppinglist)
 
@@ -122,18 +123,51 @@ def show_recipe_detail():
     analyzed_instructions = response['analyzedInstructions']
     if not analyzed_instructions:
         steps = f"Read the detailed instructions on {source_name} - Click original link below"
+        recipe_steps = steps
     else:
         instructions = analyzed_instructions[0]['steps']
         steps = []
         for step in instructions:
             steps.append(step['step'])
-            
-    return render_template('recipe_detail.html', user_id=session['user_id'], recipe=response,cook_time=cook_time, source_url=source_url, recipe_title=recipe_title, recipe_image=recipe_image,ingredients=ingredients, steps=steps)
+        recipe_steps = ",".join(steps)
+    
+    if not crud.get_recipe_by_api_id(recipe_id):
+        new_recipe = crud.create_recipe(recipe_id, recipe_title, ",".join(ingredients), recipe_image, recipe_steps, cook_time)
+        db.session.add(new_recipe)
+        db.session.commit()
+    local_recipe = crud.get_recipe_by_api_id(recipe_id)
+    return render_template('recipe_detail.html', user_id=session['user_id'], recipe=response,cook_time=cook_time, source_url=source_url, recipe_title=recipe_title, recipe_image=recipe_image,ingredients=ingredients, steps=steps, local_recipe_id=local_recipe.recipe_id)
+
+@app.route('/favorites')
+def favorite_recipes():
+    """get favorite recipes"""
+    fav_recipes = crud.get_favorite_by_user(session['user_id'])
+    recipes = []
+    if fav_recipes:
+        for fav_recipe in fav_recipes:
+            recipe = crud.get_recipe_by_id(fav_recipe.recipe_id)
+            recipes.append(recipe)
+    return render_template('favorite_recipe.html', user_id=session['user_id'], user_name=session['user_name'], recipes=recipes)
+
+@app.route('/add_to_favorite/<recipe_id>')
+def add_to_favorite_recipes(recipe_id):
+    """add to favorite recipes"""
+    if crud.get_favorite_by_recipe(recipe_id):
+        flash("This favorite recipe already exists")
+    else:
+        fav = crud.create_favorite(session['user_id'], recipe_id)
+        db.session.add(fav)
+        db.session.commit()
+        flash("Added to favorites")
+    return redirect('/favorites')
 
 
-
-
-
+@app.route('/delete_from_favorite/<recipe_id>')
+def delete_from_favorite_recipes(recipe_id):
+    """delete from favorite recipes"""
+    crud.delete_favorite_by_recipeid(recipe_id)
+    return redirect('/favorites')
+    
 
 
 if __name__ == "__main__":

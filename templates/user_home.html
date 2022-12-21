@@ -20,13 +20,18 @@
 <div class="recepie_area">
     <div class="container">
         <div class="row">
-            <ul class="single-receipe-area">
                 {% for recipe in recipes %}
-                <div class="card text-center">
-                    <div class="col-xl-4 col-lg-4 col-md-6">
-                        <img src="{{recipe['image']}}">
-                        <div class="recipe-content">
-                            <a href="/recipe?id={{ recipe['id'] }}">{{ recipe['title'] }}</a>
+                <div class="col-xl-4 col-lg-4 col-md-6">
+                    <div class="single-receipe-area">
+                        <div class="text-center">
+                            {% if 'image' not in recipe %}
+                            <img src="static/images/noimage.jpeg">
+                            {% else %}
+                            <img src="{{recipe['image']}}">
+                            {% endif %}
+                            <div class="recipe-content">
+                                <a href="/recipe?id={{ recipe['id'] }}">{{ recipe['title'] }}</a>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -9,7 +9,7 @@
     min-height: 100vh;
 }
 
-.row {
+.wrapper .row {
     width: 900px;
     height: 550px;
     border-radius: 10px;
@@ -145,6 +145,12 @@ span a:hover {
         text-align: center;
     }
 
+    .col-lg-4 {
+        -ms-flex: 0 0 33.333333%;
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+    }
+
     .row {
         max-width: 420px;
         width: 100%;
@@ -240,22 +246,41 @@ i {
     top: 0;
     right: 0;
 }
+
 .section-heading {
     font-weight: bold;
     text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
 a:hover {
     font-weight: 600;
     font-size: 15px;
     color: green;
 }
+
 .card {
     margin: 1em;
-    padding: 1em;
+    padding: 0.5em;
     display: inline-block;
 }
+
 .single-receipe-area a {
     text-decoration: none;
+}
+
+.recepie_area img {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 5px;
+    width: 100%;
+}
+
+.row {
+    width: 900px;
+    height: 550px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.2);
 }
