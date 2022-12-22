@@ -3,25 +3,27 @@
 {% block title %}Recipe Results{% endblock %}
 
 {% block body %}
+<div class="container">
+    <div class="row justify-content-center" style="margin-bottom: 20px">
+        <div class="col-md-12" style="text-align:center">
+            <h3>All matched recipes</h3>
+        </div>
+    </div>
+</div>
+<div class="search-results">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <div class="section-heading">
-                    <h3>All matched recipes</h3>
-                </div>
-            </div>
-        </div>
-        <ul class="single-receipe-area">
-            {% for recipe in recipes %}
-            <div class="card text-center">
-                <div class="col-12 col-sm-6 col-lg-4">
+            <ul class="single-receipe-area">
+                {% for recipe in recipes %}
+                <div class="text-center">
+                    <div class="col-xl-8 col-lg-4 col-md-6">
                         <img src="{{recipe['image']}}">
                         <div class="recipe-content">
                             <a href="/recipe?id={{ recipe['id'] }}">{{ recipe['title'] }}</a>
                         </div>
                     </div>
                 </div>
-            {% endfor %}
-        </ul>
-    </div>
-{% endblock %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endblock %}

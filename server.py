@@ -57,16 +57,18 @@ def login_user():
             session["user_email"] = user.email
             session["user_id"] = user.user_id
             session["user_name"] = user.username
-            flash(f"Welcome back. {user.username}")
+            #flash(f"Welcome back. {user.username}")
             return redirect(f"/user_home/{session['user_id']}")
         else:
             flash("Wrong combination.")
             return redirect("/login")
         
-@app.route("/logout", methods=["POST"])
+@app.route("/logout")
 def process_logout():
     """Delete session and logout user"""
-    session.clear()
+    del session["user_id"]
+    del session["user_name"]
+    del session["user_email"]
     
     return redirect("/")
 
@@ -107,9 +109,11 @@ def show_recipe_detail():
     endpoint = f"/{recipe_id}/information"
     final_url = url + endpoint
     print(final_url)
+    
     data = {"includeNutrition":"false", "apiKey": API_KEY}
     response = requests.get(final_url, headers=HEADERS, params=data).json()
     print(response)
+    
     cook_time = response['readyInMinutes']
     recipe_title = response['title']
     recipe_image = response['image']
@@ -117,8 +121,10 @@ def show_recipe_detail():
     source_url = response['sourceUrl']
     ingredient_list = response['extendedIngredients']
     ingredients = []
+    recipe_ingredient = ""
     for ingredient in ingredient_list:
-        ingredients.append(ingredient['original'])
+        ingredients.append({"ingredient_name": ingredient['original'], "ingredient_id": ingredient['id'], "ingredient_amount": ingredient['amount']})
+        recipe_ingredient += ingredient['original']
     
     analyzed_instructions = response['analyzedInstructions']
     if not analyzed_instructions:
@@ -132,7 +138,7 @@ def show_recipe_detail():
         recipe_steps = ",".join(steps)
     
     if not crud.get_recipe_by_api_id(recipe_id):
-        new_recipe = crud.create_recipe(recipe_id, recipe_title, ",".join(ingredients), recipe_image, recipe_steps, cook_time)
+        new_recipe = crud.create_recipe(recipe_id, recipe_title, recipe_ingredient, recipe_image, recipe_steps, cook_time)
         db.session.add(new_recipe)
         db.session.commit()
     local_recipe = crud.get_recipe_by_api_id(recipe_id)
@@ -161,14 +167,48 @@ def add_to_favorite_recipes(recipe_id):
         flash("Added to favorites")
     return redirect('/favorites')
 
-
 @app.route('/delete_from_favorite/<recipe_id>')
 def delete_from_favorite_recipes(recipe_id):
     """delete from favorite recipes"""
     crud.delete_favorite_by_recipeid(recipe_id)
     return redirect('/favorites')
     
+@app.route("/shoppinglist")
+def get_shopping_list():
+    """View shoppinglist."""
+    shopping_list = crud.get_shoppinglist_by_user(session['user_id'])
+    items = crud.get_items(shopping_list.shoppinglist_id)
+    return render_template("shoppinglist.html", user_id=session['user_id'], items=items)
 
+@app.route("/add_to_shoppinglist", methods=['POST'])
+def add_to_shopping_list():
+    """Add to shopping list"""
+    items = request.form.getlist('ingredient')
+    shoppinglist = crud.get_shoppinglist_by_user(session['user_id'])
+    if not shoppinglist:
+        new_shoppinglist = crud.create_shoppinglist(session['user_id'])
+        db.session.add(new_shoppinglist)
+        db.session.commit()
+    added_items_list = []
+    if crud.get_items(shoppinglist.shoppinglist_id):
+        added_items = crud.get_items(shoppinglist.shoppinglist_id)
+        for added_item in added_items:
+            added_items_list.append(added_item.item)
+
+    for item in items:
+        if item not in added_items_list:
+            shoppinglist_item = crud.create_item(shoppinglist.shoppinglist_id, item)
+            db.session.add(shoppinglist_item)
+            db.session.commit()
+    return redirect("/shoppinglist")
+
+@app.route("/delete_item", methods=['POST'])
+def delete_item():
+    """Delete item"""
+    item_ids = request.form.getlist('item')
+    for item_id in item_ids:
+        crud.delete_item(item_id)
+    return redirect("/shoppinglist")
 
 if __name__ == "__main__":
     connect_to_db(app)

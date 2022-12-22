@@ -88,21 +88,21 @@ def delete_favorite_by_recipeid(recipe_id):
 
 """Shoppinglist CRUD operations."""
 
-def create_shoppinglist(user_id, add_date):
+def create_shoppinglist(user_id):
     """Create and return a new shoppinglist."""
 
-    shoppinglist = Shoppinglist(user_id=user_id, add_date=datetime.now)
+    shoppinglist = Shoppinglist(user_id=user_id, add_date=datetime.now())
 
     return shoppinglist
 
 def get_shoppinglist_by_user(user_id):
      """Return all favorite recipes by user."""
      
-     return Shoppinglist.query.filter(Shoppinglist.user_id==user_id).all()
+     return Shoppinglist.query.filter(Shoppinglist.user_id==user_id).first()
 
 """item CRUD operations."""
 
-def create_item(shoppinglist_id, item, amount, is_checked):
+def create_item(shoppinglist_id, item, amount=0, is_checked=0):
     """Create and return a new shoppinglist item."""
 
     item = Item(
@@ -114,10 +114,10 @@ def create_item(shoppinglist_id, item, amount, is_checked):
 
     return item
 
-def get_items():
+def get_items(shoppinglist_id):
     """Return all shoppinglist items."""
 
-    return Item.query.all()
+    return Item.query.filter(Item.shoppinglist_id==shoppinglist_id).all()
 
 def update_item(item_id, new_item, new_amount, new_ischecked):
     """ Update a shoppinglist item given item_id and the updated information. """

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}My Shopping List{% endblock %}
+{% block head %}
+<!--CSS style-->
+<link rel="stylesheet" href="/static/css/shoppinglist.css" />
+{% endblock %}
+{% block body %}
+<div class="col-12 col-lg-4">
+    <ul id="add_item">
+        <form action="/delete_item" method="POST">
+            {% if not items %}
+            <h1>Sorry, you don't have a shopping list yet.</h1>
+            {% else %}
+            {% for item in items %}
+            <li>
+                <input type="checkbox" class="custom-control-input" name="item" value="{{ item.item_id }}">
+                <label class="custom-control-label" for="customCheck8">{{ item.item }}</label>
+            </li>
+            {% endfor %}
+            {% endif %}
+            {% if not items %}
+            <input type="hidden" value="Delete checked items">
+            {% else %}
+            <input type="submit" value="Delete checked items">
+            {% endif %}
+        </form>
+    </ul>
+</div>
+
+
+
+
+
+
+{% endblock %}
