@@ -6,43 +6,32 @@
 <link rel="stylesheet" href="/static/css/shoppinglist.css" />
 {% endblock %}
 {% block body %}
+<div>
+    <img src="static/css/sl-3.png" alt="">
+</div>
 <div class="col-12 col-lg-4">
-    <ul id="add_item">
+    <ul id="delete_item">
         <form action="/delete_item" method="POST">
             {% if not items %}
             <h1>Sorry, you don't have a shopping list yet.</h1>
-            {% else %}
-            {% for item in items %}
-            <li>
-                <input type="checkbox" class="custom-control-input" name="item" value="{{ item.item_id }}">
-                <label class="custom-control-label" for="customCheck8">{{ item.item }}</label>
-            </li>
-            {% endfor %}
-            {% endif %}
-            {% if not items %}
             <input type="hidden" value="Delete checked items">
             {% else %}
+            {% for item in items %}
+                <input type="checkbox" class="check" name="item" value="{{ item.item_id }}">
+                <label class="grocery_label" for="{{ item.item }}">{{ item.item }}</label><br>
+            {% endfor %}
             <input type="submit" value="Delete checked items">
             {% endif %}
         </form>
+        <div id="add_grocery">
+        <form action="/add_to_shoppinglist" method="POST">
+            <input class="grocery" type="submit" value="Add more grocery">
+            <div class="field">
+                <input id="grocery_input" type="text" name="ingredient" placeholder="Enter grocery..."><br>
+            </div>
+        </form>
+    </div>
     </ul>
 </div>
-
-<div id="myDIV" class="header">
-    <h2>MY Shopping List</h2>
-    <input type="text" id="myInput" placeholder="Enter grocery...">
-    <span onclick="newItem()" class="addBTN">Add</span>
-</div>
-
-<ul id="myLs">
-    <li>Grocery shopping</li>
-</ul>
-
-<script src="/static/js/shoppinglist.js"></script>
-
-
-
-
-
 
 {% endblock %}

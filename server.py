@@ -200,6 +200,8 @@ def add_to_shopping_list():
             shoppinglist_item = crud.create_item(shoppinglist.shoppinglist_id, item)
             db.session.add(shoppinglist_item)
             db.session.commit()
+        else:
+            flash("You have already added this")
     return redirect("/shoppinglist")
 
 @app.route("/delete_item", methods=['POST'])
