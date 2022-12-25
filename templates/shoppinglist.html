@@ -17,21 +17,19 @@
             <input type="hidden" value="Delete checked items">
             {% else %}
             {% for item in items %}
-                <input type="checkbox" class="check" name="item" value="{{ item.item_id }}">
-                <label class="grocery_label" for="{{ item.item }}">{{ item.item }}</label><br>
+                <input type="checkbox" id="{{ item.item_id }}" name="item" value="{{ item.item_id }}" onclick="check_clicked('{{ item.item_id }}')">
+                <label class="grocery_label" for="{{ item.item_id }}" name="{{ item.item_id }}">{{ item.item }}</label><br>
             {% endfor %}
-            <input type="submit" value="Delete checked items">
+            <input id="remove_grocery" type="submit" value="Check items">
             {% endif %}
         </form>
         <div id="add_grocery">
         <form action="/add_to_shoppinglist" method="POST">
-            <input class="grocery" type="submit" value="Add more grocery">
-            <div class="field">
-                <input id="grocery_input" type="text" name="ingredient" placeholder="Enter grocery..."><br>
-            </div>
+            <input id="grocery_input" type="text" name="ingredient" onkeyup="enable()" placeholder="Enter grocery...">
+            <input id="grocery" type="submit" value="Add more grocery" onclick="newItem()">
         </form>
     </div>
     </ul>
 </div>
-
+<script src="/static/js/shoppinglist.js"></script>
 {% endblock %}

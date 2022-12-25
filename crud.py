@@ -122,7 +122,7 @@ def get_items(shoppinglist_id):
 def update_item(item_id, new_item, new_amount, new_ischecked):
     """ Update a shoppinglist item given item_id and the updated information. """
     
-    item_update = Item.query.get(item_id)
+    item_update = Item.query.filter_by(item_id).first()
     item_update.item = new_item
     item_update.amount = new_amount
     item_update.is_checked = new_ischecked

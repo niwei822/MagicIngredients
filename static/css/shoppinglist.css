@@ -16,3 +16,38 @@ label {
     background-color: rgb(213, 236, 223);
     padding: 20px;
 }
+
+#grocery {
+    background-color: #01A88A;
+    color: white;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 2px solid white;
+    margin: 10px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+#remove_grocery {
+    background-color: lightgray;
+    color: black;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 2px solid white;
+    margin: 10px;
+    padding: 10px 15px;
+}
+
+#grocery_input {
+    font-family:'Poppins', sans-serif;
+    text-align: center;
+    width: 200px;
+    margin: 20px 10px;
+    padding: 5px 0;
+    border: 2px solid darkgray;
+    border-radius: 10px;
+}
+
+#grocery:hover {
+    background-color: darkslategray;
+}
