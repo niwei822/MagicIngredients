@@ -296,3 +296,13 @@ a:hover {
         margin-bottom: 80px;
     }
 }
+.search_fav {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    margin: 20px;
+}
+
+.hide {
+    display: none;
+}

@@ -6,6 +6,14 @@
 
 <div class="recepie_area">
     <div class="container">
+        <div class="search_fav">
+            <form action="/favorites" method="POST">
+                 <label for="search">Search favorite recipe</label>
+                <input type="text" name="search_fav" placeholder="Search...">
+                <input class="button" type="submit" value="Go!">
+                <button class="button_back" id="go_back">Go back</button>
+            </form>
+        </div>
         <div class="row">
                 {% if not recipes %}
                     <h1>You don't have any favorite recipes</h1>
@@ -21,6 +29,7 @@
                             {% endif %}
                                 <div class="recipe-content">
                                     <a href="/recipe?id={{ recipe['recipe_api_id'] }}">{{ recipe['recipe_name'] }}</a>
+                                    <a class="product-favourite-button w-inline-block active"></a>
                                 </div>
                             </div>
                         </div>

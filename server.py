@@ -1,6 +1,6 @@
 """Server for magic ingredients app."""
 
-from flask import Flask, render_template, request, flash, session, redirect
+from flask import Flask, render_template, request, flash, session, redirect, jsonify
 from model import connect_to_db, db
 import crud
 import os
@@ -144,15 +144,27 @@ def show_recipe_detail():
     local_recipe = crud.get_recipe_by_api_id(recipe_id)
     return render_template('recipe_detail.html', user_id=session['user_id'], recipe=response,cook_time=cook_time, source_url=source_url, recipe_title=recipe_title, recipe_image=recipe_image,ingredients=ingredients, steps=steps, local_recipe_id=local_recipe.recipe_id)
 
-@app.route('/favorites')
+@app.route('/favorites', methods=["GET", "POST"])
 def favorite_recipes():
     """get favorite recipes"""
-    fav_recipes = crud.get_favorite_by_user(session['user_id'])
-    recipes = []
-    if fav_recipes:
-        for fav_recipe in fav_recipes:
-            recipe = crud.get_recipe_by_id(fav_recipe.recipe_id)
-            recipes.append(recipe)
+    if request.method == "GET":
+        fav_recipes = crud.get_favorite_by_user(session['user_id'])
+        recipes = []
+        if fav_recipes:
+            for fav_recipe in fav_recipes:
+                recipe = crud.get_recipe_by_id(fav_recipe.recipe_id)
+                recipes.append(recipe)
+    else:
+        search_fav = request.form.get("search_fav")
+        fav_recipes = crud.get_favorite_by_user(session['user_id'])
+        recipes = []
+        if fav_recipes:
+            for fav_recipe in fav_recipes:
+                recipe = crud.get_recipe_by_id(fav_recipe.recipe_id)
+                if search_fav.lower() in recipe.recipe_name.lower():
+                    recipes.append(recipe)
+                    #recipes.append({'recipe_id': recipe.recipe_id, 'recipe_api_id': recipe.recipe_api_id, 'recipe_image': recipe.image, 'recipe_ingredients': recipe.ingredients, 'recipe_name': recipe.recipe_name})
+            #return jsonify(recipes)
     return render_template('favorite_recipe.html', user_id=session['user_id'], user_name=session['user_name'], recipes=recipes)
 
 @app.route('/add_to_favorite/<recipe_id>')
