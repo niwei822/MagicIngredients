@@ -9,7 +9,7 @@
 <div>
     <img src="static/css/sl-3.png" alt="">
 </div>
-<div class="col-12 col-lg-4">
+<div class="container">
     <ul id="delete_item">
         <form action="/delete_item" method="POST">
             {% if not items %}
@@ -19,10 +19,15 @@
             {% for item in items %}
                 <input type="checkbox" id="{{ item.item_id }}" name="item" value="{{ item.item_id }}" onclick="check_clicked('{{ item.item_id }}')">
                 <label class="grocery_label" for="{{ item.item_id }}" name="{{ item.item_id }}">{{ item.item }}</label><br>
+                
             {% endfor %}
             <input id="remove_grocery" type="submit" value="Check items">
             {% endif %}
-        </form>
+        <!-- </form>
+        <form action="/update_item" method="POST">
+                <input id="edit_grocery" type="submit" value="Edit item">
+                <input id="save_btn" type="submit" value="Save">
+        </form> -->
         <div id="add_grocery">
         <form action="/add_to_shoppinglist" method="POST">
             <input id="grocery_input" type="text" name="ingredient" onkeyup="enable()" placeholder="Enter grocery...">

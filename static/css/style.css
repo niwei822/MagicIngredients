@@ -173,10 +173,11 @@ body {
 }
 
 .container {
-    width: 350px;
+    width: 600px;
     display: flex;
     flex-direction: column;
-    padding: 0 15px 0 15px;
+    align-items: center;
+    text-align: left;
 }
 
 span {
@@ -261,25 +262,24 @@ a:hover {
 }
 
 .card {
-    margin: 1em;
-    padding: 0.5em;
     display: inline-block;
+    width: 100%;
 }
 
 .single-receipe-area a {
     text-decoration: none;
+    white-space: nowrap;
+    font-size: 13px;
 }
 
 .recepie_area img {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 5px;
+    padding: 10px;
     width: 100%;
 }
 
 .row {
     width: 900px;
-    height: 550px;
+    height: 100%;
     border-radius: 10px;
     background: #fff;
     box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.2);
@@ -297,12 +297,90 @@ a:hover {
     }
 }
 .search_fav {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-    margin: 20px;
+    position: relative;
+    width: 360px;
+    height: 40px;
+    background: #fff;
+    border-radius: 60px;
+    transition: 0.5s;
+    overflow: hidden;
 }
 
-.hide {
-    display: none;
+.search_input {
+position: relative;
+width: 300px;
+height: 40px;
+left: 60px;
+display: flex;
+justify-content: center;
+align-items: center;
+background: white;
+}
+
+
+
+#mysearch {
+   position: absolute;
+   top: 0;
+   width: 100%;
+   height: 100%;
+   border: none;
+   outline: none;
+   font-size: 18px;
+   padding: 10px 0;
+}
+.search_fav .button {
+    display: block;
+}
+
+.clear {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
+    right: 15px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.clear::before {
+    position: absolute;
+    content: '';
+    width: 1px;
+    height: 15px;
+    background: #999;
+    transform: rotate(45deg);
+}
+.clear::after {
+    position: absolute;
+    content: '';
+    width: 1px;
+    height: 15px;
+    background: #999;
+    transform: rotate(315deg);
+}
+
+#btn1 {
+    border: none;
+    font-size: 20px;
+    outline: none;
+    margin-left: 60%;
+    margin-top: 1%;
+    background:white;
+    overflow: visible;
+}
+
+#btn1 i:hover {
+    cursor: pointer;
+}
+
+button[type="submit"] {
+    margin-left: 70%;
+    height: 0px;
+    width: 10px;
+    
+    border: 0;
 }

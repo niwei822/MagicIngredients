@@ -7,11 +7,11 @@
 <h2 class="recipe_search">Show me what to cook!</h2>
 
 <div class="container">
-    <div class="row justify-content-center" style="margin-bottom: 20px">
+    <div class="justify-content-center" style="margin-bottom: 0px">
         <div class="col-md-12" style="text-align:center">
             <h3>In my pantry, I have the following items</h3>
             <form action="/search" method="POST">
-                <input type="text" name="search" placeholder="Use , to seperate each ingredient">
+                <input type="text" name="search" placeholder="Use , to seperate each ingredient" size="50">
                 <input class="button" type="submit" value="Go!">
             </form>
         </div>
@@ -30,7 +30,11 @@
                             <img src="{{recipe['image']}}">
                             {% endif %}
                             <div class="recipe-content">
-                                <a href="/recipe?id={{ recipe['id'] }}">{{ recipe['title'] }}</a>
+                                {% if recipe['title']|length <= 25 %}
+                                    <a href="/recipe?id={{ recipe['id'] }}">{{ recipe['title'] }}</a>
+                                {% else %}
+                                    <a href="/recipe?id={{ recipe['id'] }}" title="{{ recipe['title'] }}">{{ recipe['title'][:25] + "..." }}</a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
