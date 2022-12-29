@@ -216,7 +216,7 @@ i {
 }
 
 ::-webkit-input-placeholder {
-    color: green;
+    color: wheat;
 }
 
 .submit2 {
@@ -264,6 +264,7 @@ a:hover {
 .card {
     display: inline-block;
     width: 100%;
+    margin-bottom: 20px;
 }
 
 .single-receipe-area a {
@@ -381,6 +382,6 @@ button[type="submit"] {
     margin-left: 70%;
     height: 0px;
     width: 10px;
-    
     border: 0;
 }
+
