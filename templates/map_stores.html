@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Store search page{% endblock %}
+{% block head %}
+<!--CSS style-->
+<link rel="stylesheet" href="/static/css/map.css">
+<style>
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+</style>
+
+
+{% endblock %}
+{% block body %}
+<input id="pac-input" class="controls" type="text" placeholder="City, State or Zip Code">
+<div id="map" style="height: 100vh"></div>
+
+
+
+<script src="/static/js/map.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWdrjXgCXSW4blslJoAKr81S0YMfPtVPQ&libraries=places&callback=initMap&solution_channel=GMP_codelabs_simplestorelocator_v1_a">
+</script>
+{% endblock %}

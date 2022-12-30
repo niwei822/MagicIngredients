@@ -224,6 +224,13 @@ def delete_item():
         crud.delete_item(item_id)
     return redirect("/shoppinglist")
 
+@app.route("/map")
+def view_stores_map():
+    """Show map of stores."""
+    user = crud.get_user_by_id(session['user_id'])
+    return render_template("map_stores.html", user=user, user_id=session['user_id'])
+
+
 if __name__ == "__main__":
     connect_to_db(app)
     app.run(host="0.0.0.0", debug=True)
