@@ -1,38 +1,76 @@
-
 #map {
   position: relative;
   overflow: hidden;
-  width: 100%;
   height: 100%;
-  }
-  #pac-input {
-    background-color: #fff;
-    font-family: Roboto;
-    font-size: 15px;
-    font-weight: 300;
-    margin-left: 12px;
-    padding: 0 11px 0 13px;
-    text-overflow: ellipsis;
-    width: 400px;
-  }
-  
-  #pac-input:focus {
-    border-color: #4d90fe;
-  }
-  
-  .pac-container {
-    font-family: Roboto;
-  }
-  
-  #type-selector {
-    color: #fff;
-    background-color: #4d90fe;
-    padding: 5px 11px 0px 11px;
-  }
-  
-  #type-selector label {
-    font-family: Roboto;
-    font-size: 13px;
-    font-weight: 300;
-  }
-  
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0 !important;
+}
+
+table {
+  font-size: 12px;
+}
+
+.store-search {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+
+  position: absolute;
+  top: 20;
+  width: 440px;
+  z-index: 1;
+}
+
+#map {
+  margin-top: 30px;
+}
+
+#findstores {
+  font-size: 16px;
+  font-weight: bold;
+  color: darkgreen;
+}
+
+#locationField {
+  -webkit-box-flex: 1 1 190px;
+  -ms-flex: 1 1 190px;
+  flex: 1 1 190px;
+  margin: 0 8px;
+}
+
+#autocomplete {
+  width: 100%;
+}
+
+.placeIcon {
+  width: 20px;
+  height: 34px;
+  margin: 4px;
+}
+
+.storeIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.iw_table_row {
+  height: 18px;
+}
+
+.iw_attribute_name {
+  font-weight: bold;
+  text-align: right;
+}
+
+.iw_table_icon {
+  text-align: right;
+}
