@@ -1,24 +1,38 @@
-function check_clicked(input_id){
-  var checked_input = document.querySelector("[id='"+input_id+"']");
-  const checked_label = document.querySelector("[for='"+input_id+"']");
+function check_clicked(item_id){
+  var checked_input = document.querySelector("[id='"+item_id+"']");
+  const checked_label = document.querySelector("[data-input-id='"+item_id+"']");
   if (checked_input.checked) {
     checked_label.style.textDecoration = "line-through";
     checked_label.style.color = "#01A88A";
+    var add_html = '<div><form action="/delete_item/'+item_id+'" id="form'+item_id+'" method="POST"><input type="submit" value="Delete"></form></div>'
+    document.querySelector("[data-input-id='"+item_id+"']").insertAdjacentHTML('afterend', add_html);
   }
   else {
     checked_label.style.textDecoration = "";
+    document.getElementById("form"+item_id).style.display = "none"
   }
   
-  const btn = document.getElementById("remove_grocery");
-  btn.value = "Delete items";
-  btn.style.color = "#01A88A";
-  btn.backgroundColor = "#FE7575";
-  if (checked_input.checked == false) {
-    btn.value = "Check items";
-    btn.style.color = "BLACK";
-    btn.backgroundColor = "WHITE";
-    checked_label.style.color = "BLACK";
+  
+  // const btn = document.getElementById("remove_grocery");
+  // btn.value = "Delete items";
+  // btn.style.color = "#01A88A";
+  // btn.backgroundColor = "#FE7575";
+  // if (checked_input.checked == false) {
+  //   btn.value = "Check items";
+  //   btn.style.color = "BLACK";
+  //   btn.backgroundColor = "WHITE";
+  //   checked_label.style.color = "BLACK";
+  // }
 }
+
+function edit_grocery(item_id){
+  var item_name = document.querySelector("[data-input-id='"+item_id+"']").innerHTML.replace(/ /g, '\xa0');
+  console.log(item_name)
+  var add_html = '<div><form action="/update_item/'+item_id+'" method="POST"><input name="edit_grocery'+item_id+'" class="input_area" type="text" value='+item_name+'><input type="submit"></form></div>'
+  document.querySelector("[data-input-id='"+item_id+"']").insertAdjacentHTML('beforebegin', add_html);
+  document.querySelector("[data-input-id='"+item_id+"']").style.display = "none";
+  // var grocery_text = document.getElementById("grocery_input");
+  // grocery_text.value = item_name;
 }
 
 function newItem() {
@@ -37,3 +51,4 @@ function enable() {
       add_btn.disabled = false;
   }
 }
+

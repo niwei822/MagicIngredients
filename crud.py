@@ -119,13 +119,13 @@ def get_items(shoppinglist_id):
 
     return Item.query.filter(Item.shoppinglist_id==shoppinglist_id).all()
 
-def update_item(item_id, new_item, new_amount, new_ischecked):
+def update_item(item_id, new_item, amount=0, is_checked=0):
     """ Update a shoppinglist item given item_id and the updated information. """
     
-    item_update = Item.query.filter_by(item_id).first()
+    item_update = Item.query.filter(Item.item_id==item_id).first()
     item_update.item = new_item
-    item_update.amount = new_amount
-    item_update.is_checked = new_ischecked
+    item_update.amount = amount
+    item_update.is_checked = is_checked
     db.session.commit()
     return
 

@@ -305,6 +305,7 @@ a:hover {
     border-radius: 60px;
     transition: 0.5s;
     overflow: hidden;
+    margin-top: 20px;
 }
 
 .search_input {

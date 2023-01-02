@@ -216,12 +216,20 @@ def add_to_shopping_list():
             flash("You have already added this")
     return redirect("/shoppinglist")
 
-@app.route("/delete_item", methods=['POST'])
-def delete_item():
+@app.route("/delete_item/<item_id>", methods=['POST'])
+def delete_item(item_id):
     """Delete item"""
-    item_ids = request.form.getlist('item')
-    for item_id in item_ids:
-        crud.delete_item(item_id)
+    crud.delete_item(item_id)
+    return redirect("/shoppinglist")
+
+@app.route("/update_item/<item_id>", methods=['POST'])
+def update_item(item_id):
+    """Update item"""
+    
+    input_item_id = 'edit_grocery'+item_id
+    update_item = request.form.get(input_item_id)
+    crud.update_item(item_id, update_item)
+    
     return redirect("/shoppinglist")
 
 @app.route("/map")
