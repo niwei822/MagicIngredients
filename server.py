@@ -92,6 +92,7 @@ def user_profile(user_id):
 @app.route('/search', methods=["POST"])
 def search_recipes():
     """search recipes based on input ingredients"""
+    user = crud.get_user_by_id(session['user_id'])
     ingredients = request.form.get("search").replace(",", ",+")
     #print(ingredients)
     endpoint = '/findByIngredients'
@@ -99,7 +100,12 @@ def search_recipes():
     data = {"ingredients": ingredients, "apiKey": API_KEY}
     response = requests.get(final_url, headers=HEADERS, params=data).json()
     #print(response)
-    if response:
+    if len(response) == 0:
+        flash("No rescipe found") 
+        return render_template('recipe_results.html', user_id=session['user_id'], recipes=response)
+
+    
+    else:
         return render_template('recipe_results.html', user_id=session['user_id'], recipes=response)
     
 @app .route('/recipe')
