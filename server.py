@@ -13,8 +13,13 @@ app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
 API_KEY = os.environ['SPOONACULAR_APIKEY']
-url = 'https://api.spoonacular.com/recipes'
-HEADERS = {"Content-Type": "application/json"}
+API_KEY2 = os.environ['YELP_APIKEY']
+url1 = 'https://api.spoonacular.com/recipes'
+url2 = 'https://api.yelp.com/v3/businesses/search'
+HEADERS1 = {"Content-Type": "application/json"}
+HEADERS2 = {
+    "accept": "application/json",
+    "Authorization":  'Bearer %s' % API_KEY2}
 
 @app.route("/")
 def homepage():
@@ -80,9 +85,9 @@ def user_profile(user_id):
     #shoppinglist = crud.get_shoppinglist_by_user(user_id)
     """Show random recipes"""
     endpoint = '/random'
-    final_url = url + endpoint
+    final_url = url1 + endpoint
     data = {"number":"9", "apiKey": API_KEY}
-    response = requests.get(final_url, headers=HEADERS, params=data).json()['recipes']
+    response = requests.get(final_url, headers=HEADERS1, params=data).json()['recipes']
     # print(response)
     # print(fav_recipes[0].recipe)
     # print(shoppinglist)
@@ -92,19 +97,17 @@ def user_profile(user_id):
 @app.route('/search', methods=["POST"])
 def search_recipes():
     """search recipes based on input ingredients"""
-    user = crud.get_user_by_id(session['user_id'])
+    #user = crud.get_user_by_id(session['user_id'])
     ingredients = request.form.get("search").replace(",", ",+")
     #print(ingredients)
     endpoint = '/findByIngredients'
-    final_url = url + endpoint
+    final_url = url1 + endpoint
     data = {"ingredients": ingredients, "apiKey": API_KEY}
-    response = requests.get(final_url, headers=HEADERS, params=data).json()
+    response = requests.get(final_url, headers=HEADERS1, params=data).json()
     #print(response)
     if len(response) == 0:
         flash("No rescipe found") 
-        return render_template('recipe_results.html', user_id=session['user_id'], recipes=response)
-
-    
+        return render_template('recipe_results.html', user_id=session['user_id'], recipes=response)    
     else:
         return render_template('recipe_results.html', user_id=session['user_id'], recipes=response)
     
@@ -113,11 +116,11 @@ def show_recipe_detail():
     """Display recipe detail when click the recipe name."""
     recipe_id = request.args['id']
     endpoint = f"/{recipe_id}/information"
-    final_url = url + endpoint
+    final_url = url1 + endpoint
     print(final_url)
     
     data = {"includeNutrition":"false", "apiKey": API_KEY}
-    response = requests.get(final_url, headers=HEADERS, params=data).json()
+    response = requests.get(final_url, headers=HEADERS1, params=data).json()
     print(response)
     
     cook_time = response['readyInMinutes']
@@ -152,14 +155,15 @@ def show_recipe_detail():
 
 @app.route('/favorites', methods=["GET", "POST"])
 def favorite_recipes():
-    """get favorite recipes"""
+    """display favorite recipes"""
+    """search fav recipes by keyword input"""
     if request.method == "GET":
         fav_recipes = crud.get_favorite_by_user(session['user_id'])
         recipes = []
         if fav_recipes:
             for fav_recipe in fav_recipes:
                 recipe = crud.get_recipe_by_id(fav_recipe.recipe_id)
-                recipes.append(recipe)
+                recipes.append(recipe) 
     else:
         search_fav = request.form.get("search_fav")
         fav_recipes = crud.get_favorite_by_user(session['user_id'])
@@ -169,8 +173,6 @@ def favorite_recipes():
                 recipe = crud.get_recipe_by_id(fav_recipe.recipe_id)
                 if search_fav.lower() in recipe.recipe_name.lower():
                     recipes.append(recipe)
-                    #recipes.append({'recipe_id': recipe.recipe_id, 'recipe_api_id': recipe.recipe_api_id, 'recipe_image': recipe.image, 'recipe_ingredients': recipe.ingredients, 'recipe_name': recipe.recipe_name})
-            #return jsonify(recipes)
     return render_template('favorite_recipe.html', user_id=session['user_id'], user_name=session['user_name'], recipes=recipes)
 
 @app.route('/add_to_favorite/<recipe_id>')
@@ -243,6 +245,28 @@ def view_stores_map():
     """Show map of stores."""
     user = crud.get_user_by_id(session['user_id'])
     return render_template("map_stores.html", user=user, user_id=session['user_id'])
+
+@app.route("/search_restaurant/<recipe_id>")
+def go_to_search_restaurant(recipe_id):
+    """Show search restaurant page."""
+    user = crud.get_user_by_id(session['user_id'])
+    recipe  = crud.get_recipe_by_id(recipe_id)
+    return render_template("search_restaurant.html", user=user, user_id=session['user_id'], recipe_name=recipe.recipe_name, recipe_id=recipe_id)
+
+@app.route('/search_restaurant/<recipe_id>', methods=["POST"])
+def search_restaurant_result(recipe_id):
+    """search restaurant based on input"""
+    recipe  = crud.get_recipe_by_id(recipe_id)
+    location = request.form.get("search_rest")
+    data = {"location": location, "term": recipe.recipe_name, "open_now": True, "sort_by": "rating",}
+    response = requests.get(url2, headers=HEADERS2, params=data).json()
+    print(response)
+    if len(response) == 0:
+        flash("No restaurant found") 
+        return render_template('search_restaurant.html', restaurants=response)
+    else:
+        return render_template('search_restaurant.html', user_id=session['user_id'], recipe_id=recipe_id, recipe_name=recipe.recipe_name, restaurants=response["businesses"])
+
 
 
 if __name__ == "__main__":

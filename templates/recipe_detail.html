@@ -24,8 +24,9 @@
                         <h6>Ready in: {{ cook_time }} minutes</h6>
                     </div>
                     <div>
-                        <form action="/search_restaurant" method="POST"></form>
+                        <form action="/search_restaurant/{{ local_recipe_id }}">
                         <input id="restaurant" type="submit" value="Don't feel like cooking?">
+                    </form>
                     </div>
                 </div>
             </div>

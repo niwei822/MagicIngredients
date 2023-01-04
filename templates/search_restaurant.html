@@ -1,9 +1,48 @@
 {% extends 'base.html' %}
 
 {% block title %}Search for restaurants{% endblock %}
-
+{% block head %}
+<!--CSS style-->
+<link rel="stylesheet" href="/static/css/restaurant.css" />
+{% endblock %}
 {% block body %}
+<div class="restaurant_area">
+    <div class="container">
+        <div>
+            Search for {{ recipe_name }}
+        </div>
+        <form action="/search_restaurant/{{ recipe_id }}" method="POST" autocomplete="off">
+            <div class="search_rest">
 
+                <div class="search_input">
+                    <input type="text" name="search_rest" id="mysearch" placeholder="Enter zipcode...">
+                    <span class="clear" onclick="document.getElementById('mysearch').value = ''"></span>
+                </div>
+            </div>
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+        <div class="single-restaurant-area">
+            <div class="row">
+                {% if restaurants is defined %}
+                {% for restaurant in restaurants %}
+                <div class="col-xl-3 col-lg-6 col-md-8">
+                    <div class="card text-center">
+                        <img src="{{restaurant['image_url']}}">
+                        <div class="restaurant-content">
+                            <a href="{{ restaurant['url'] }}">{{ restaurant['name'] }}</a>
+                            <p>Rating: {{ restaurant['rating'] }}</p>
+                            <p>{{ restaurant['location']['address1'] }}</p>
+                            <p>Open Now</p>
+                            <p>{{ restaurant['phone'] }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
