@@ -11,7 +11,10 @@
 <div class="store-search">
     <div id="findstores">Find a supermarket nearby:</div>
     <div id="locationField">
-      <input id="autocomplete" placeholder="Enter a city or zipcode" type="text" />
+      <input
+      id="pac-input"
+      type="text" placeholder="Enter a city or zipcode"
+      />
     </div>
 </div>
 <div id="map"></div>
@@ -38,7 +41,6 @@
       </table>
     </div>
   </div>
-
 
 <script src="/static/js/map.js"></script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWdrjXgCXSW4blslJoAKr81S0YMfPtVPQ&callback=initMap&libraries=places&v=weekly">

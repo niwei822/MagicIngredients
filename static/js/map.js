@@ -24,7 +24,7 @@ function initMap() {
 
   // Create the autocomplete object and associate it with the UI input control.
   autocomplete = new google.maps.places.Autocomplete(
-    document.getElementById("autocomplete"),
+    document.getElementById("pac-input"),
     {
       types: ["(regions)"],
       fields: ["address_components", "geometry", "icon", "name"],
@@ -44,7 +44,7 @@ function onPlaceChanged() {
     map.setZoom(15);
     search();
   } else {
-    document.getElementById("autocomplete").placeholder = "Please enter a city or zip code first!";
+    document.getElementById("pac-input").placeholder = "Please enter a city or zip code first!";
   }
 }
 

@@ -2,6 +2,7 @@
   position: relative;
   overflow: hidden;
   height: 100%;
+  margin-top: 30px;
 }
 
 html,
@@ -9,10 +10,6 @@ body {
   height: 100%;
   margin: 0;
   padding: 0 !important;
-}
-
-table {
-  font-size: 12px;
 }
 
 .store-search {
@@ -30,10 +27,6 @@ table {
   z-index: 1;
 }
 
-#map {
-  margin-top: 30px;
-}
-
 #findstores {
   font-size: 16px;
   font-weight: bold;
@@ -46,10 +39,6 @@ table {
   -ms-flex: 1 1 190px;
   flex: 1 1 190px;
   margin: 0 8px;
-}
-
-#autocomplete {
-  width: 50%;
 }
 
 .placeIcon {
@@ -74,4 +63,28 @@ table {
 
 .iw_table_icon {
   text-align: right;
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 400px;
+  margin-bottom: -40px;
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
+}
+
+/* .pac-container, .pac-item {
+  width: inherit !important;
+} */
+
+.pac-item-selected {
+  height: 50px;
 }
