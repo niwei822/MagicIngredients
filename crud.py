@@ -119,6 +119,11 @@ def get_items(shoppinglist_id):
 
     return Item.query.filter(Item.shoppinglist_id==shoppinglist_id).all()
 
+def get_item_by_id(item_id):
+    """Return an item by primary key."""
+
+    return Item.query.get(item_id)
+
 def update_item(item_id, new_item, amount=0, is_checked=0):
     """ Update a shoppinglist item given item_id and the updated information. """
     

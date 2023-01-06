@@ -13,7 +13,7 @@
                     <span class="clear" onclick="document.getElementById('mysearch').value = ''"></span>
                 </div>
             </div>
-            <button type="submit"><i class="fa fa-search"></i></button>
+            <button type="submit" id="fav-search"><i class="fa fa-search"></i></button>
         </form>
 
         <div class="row">
@@ -38,7 +38,7 @@
                                 {% endif %}
                                 <a class="product-favourite-button w-inline-block active"></a>
                                 <form action="/delete_from_favorite/{{ recipe['recipe_id'] }}">
-                                    <Button onclick="Toggle()" id="btn1"><i class="fas fa-heart" id="heart"
+                                    <Button id="btn1"><i class="fas fa-heart" id="heart"
                                             style="color: red;"></i></Button>
                                 </form>
                         </div>

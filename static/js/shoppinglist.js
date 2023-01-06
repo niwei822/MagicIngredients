@@ -1,18 +1,36 @@
+
 function check_clicked(item_id){
+  ItemId = item_id;
   var checked_input = document.querySelector("[id='"+item_id+"']");
   const checked_label = document.querySelector("[data-input-id='"+item_id+"']");
   if (checked_input.checked) {
     checked_label.style.textDecoration = "line-through";
     checked_label.style.color = "#01A88A";
-    var add_html = '<div><form action="/delete_item/'+item_id+'" id="form'+item_id+'" method="POST"><input type="submit" value="Delete"></form></div>'
+    var add_html = '<button type="submit" class="trash" id="trash'+item_id+'" data-item-id='+item_id+'>🗑️</button>'
     document.querySelector("[data-input-id='"+item_id+"']").insertAdjacentHTML('afterend', add_html);
   }
   else {
     checked_label.style.textDecoration = "";
-    document.getElementById("form"+item_id).style.display = "none"
+    document.getElementById("trash"+item_id).style.display = "none"
   }
+
+function delete_clicked(delete_btn){
+  const ItemId = delete_btn.getAttribute('data-item-id');
+  delete_btn.addEventListener('click', () => { 
+    fetch(`/delete_item/${ItemId}`, {
+      method: 'DELETE',
+      headers: {"Content-Type":"application/json"}
+    })
+      .then((response) => response.json())
+      .then(() => {
+        delete_btn.parentElement.remove();
+      });
+    });
+}
   
+document.querySelectorAll("#trash"+ItemId).forEach((e) => delete_clicked(e));
   
+
   // const btn = document.getElementById("remove_grocery");
   // btn.value = "Delete items";
   // btn.style.color = "#01A88A";

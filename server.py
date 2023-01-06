@@ -46,13 +46,13 @@ def register_user():
         db.session.add(user)
         db.session.commit()
         flash("Account created! Please log in.")
-    return redirect("/login")
+    return redirect("/")
 
 @app.route("/login", methods=["GET", "POST"])
 def login_user():
     """Login user."""
     if request.method == "GET":
-        return render_template('login.html')
+        return redirect("/")
     else:
         email = request.form.get("email")
         password = request.form.get("password")
@@ -66,7 +66,7 @@ def login_user():
             return redirect(f"/user_home/{session['user_id']}")
         else:
             flash("Wrong combination.")
-            return redirect("/login")
+            return redirect("/")
         
 @app.route("/logout")
 def process_logout():
@@ -224,11 +224,13 @@ def add_to_shopping_list():
             flash("You have already added this")
     return redirect("/shoppinglist")
 
-@app.route("/delete_item/<item_id>", methods=['POST'])
+@app.route("/delete_item/<item_id>", methods=['DELETE'])
 def delete_item(item_id):
     """Delete item"""
+    
     crud.delete_item(item_id)
-    return redirect("/shoppinglist")
+    response = {"success":True}
+    return jsonify(response)
 
 @app.route("/update_item/<item_id>", methods=['POST'])
 def update_item(item_id):
