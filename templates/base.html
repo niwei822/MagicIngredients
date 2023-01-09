@@ -34,15 +34,16 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <div class="navbar-nav me-auto mb-2 mb-lg-0">
-            <a class="nav-item nav-link active" href="/user_home/{{ user_id }}">Home</a>
+        <div class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <a class="nav-item nav-link" href="/user_home/{{ user_id }}">Home</a>
             <a class="nav-item nav-link" href="/favorites">Favorites</a>
             <a class="nav-item nav-link" href="/shoppinglist">My Shopping List</a>
             <a class="nav-item nav-link" href="/map">Locate Stores</a>
-            <form action="/logout">
+            <a class="nav-item nav-link" href="/logout">Log Out</a>
+            <!--<form action="/logout">
                   <button class='btn btn-success pull-right' id="logout">
                       Log out</button>
-              </form>
+              </form>-->
         </div>
       </div>
     </div>

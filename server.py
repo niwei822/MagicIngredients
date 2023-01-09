@@ -151,7 +151,16 @@ def show_recipe_detail():
         db.session.add(new_recipe)
         db.session.commit()
     local_recipe = crud.get_recipe_by_api_id(recipe_id)
-    return render_template('recipe_detail.html', user_id=session['user_id'], recipe=response,cook_time=cook_time, source_url=source_url, recipe_title=recipe_title, recipe_image=recipe_image,ingredients=ingredients, steps=steps, local_recipe_id=local_recipe.recipe_id)
+    is_in_favorite = is_favorite(local_recipe.recipe_id)
+    return render_template('recipe_detail.html', is_in_favorite=is_in_favorite, user_id=session['user_id'], recipe=response,cook_time=cook_time, source_url=source_url, recipe_title=recipe_title, recipe_image=recipe_image,ingredients=ingredients, steps=steps, local_recipe_id=local_recipe.recipe_id)
+
+def is_favorite(recipe_id):
+
+    fav_recipes = crud.get_favorite_by_user(session['user_id'])
+    for fav_recipe in fav_recipes:
+        if recipe_id == fav_recipe.recipe_id:
+            return True
+    return False
 
 @app.route('/favorites', methods=["GET", "POST"])
 def favorite_recipes():
@@ -175,17 +184,22 @@ def favorite_recipes():
                     recipes.append(recipe)
     return render_template('favorite_recipe.html', user_id=session['user_id'], user_name=session['user_name'], recipes=recipes)
 
-@app.route('/add_to_favorite/<recipe_id>')
+@app.route('/add_to_favorite/<recipe_id>', methods=["POST"])
 def add_to_favorite_recipes(recipe_id):
     """add to favorite recipes"""
-    if crud.get_favorite_by_recipe(recipe_id):
-        flash("This favorite recipe already exists")
-    else:
-        fav = crud.create_favorite(session['user_id'], recipe_id)
-        db.session.add(fav)
-        db.session.commit()
-        flash("Added to favorites")
-    return redirect('/favorites')
+    fav = crud.create_favorite(session['user_id'], recipe_id)
+    db.session.add(fav)
+    db.session.commit()
+    response = {"success":True}
+    return jsonify(response)
+
+@app.route('/unfavorite/<recipe_id>', methods=['DELETE'])
+def unfavorite_recipe(recipe_id):
+    """remove from favorite recipes"""
+    crud.delete_favorite_by_recipeid(recipe_id)
+    response = {"success":True}
+    
+    return jsonify(response)
 
 @app.route('/delete_from_favorite/<recipe_id>')
 def delete_from_favorite_recipes(recipe_id):
@@ -222,6 +236,7 @@ def add_to_shopping_list():
             db.session.commit()
         else:
             flash("You have already added this")
+            
     return redirect("/shoppinglist")
 
 @app.route("/delete_item/<item_id>", methods=['DELETE'])
@@ -230,6 +245,7 @@ def delete_item(item_id):
     
     crud.delete_item(item_id)
     response = {"success":True}
+    
     return jsonify(response)
 
 @app.route("/update_item/<item_id>", methods=['POST'])

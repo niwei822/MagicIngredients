@@ -401,17 +401,17 @@ background: white;
     transform: rotate(315deg);
 }
 
-#btn1 {
+#fav {
     border: none;
     font-size: 20px;
     outline: none;
     margin-left: 60%;
     margin-top: 1%;
-    background:white;
+    background: inherit;
     overflow: visible;
 }
 
-#btn1 i:hover {
+#fav i:hover {
     cursor: pointer;
 }
 
@@ -422,3 +422,6 @@ background: white;
     border: 0;
 }
 
+.nav-item:hover {
+color: darkgreen;
+}
