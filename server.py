@@ -131,9 +131,11 @@ def show_recipe_detail():
     ingredient_list = response['extendedIngredients']
     ingredients = []
     recipe_ingredient = ""
+    item_ingredient = ""
     for ingredient in ingredient_list:
-        ingredients.append({"ingredient_name": ingredient['original'], "ingredient_id": ingredient['id'], "ingredient_amount": ingredient['amount']})
+        ingredients.append({"ingredient_name": ingredient['original'], "item_name":ingredient['name'], "ingredient_id": ingredient['id'], "ingredient_amount": ingredient['amount']})
         recipe_ingredient += ingredient['original']
+        item_ingredient += ingredient['name']
     
     analyzed_instructions = response['analyzedInstructions']
     if not analyzed_instructions:
@@ -218,6 +220,9 @@ def get_shopping_list():
 def add_to_shopping_list():
     """Add to shopping list"""
     items = request.form.getlist('ingredient')
+    # item_names = []
+    # for item in items:
+    #     item_names.append
     shoppinglist = crud.get_shoppinglist_by_user(session['user_id'])
     if not shoppinglist:
         new_shoppinglist = crud.create_shoppinglist(session['user_id'])
@@ -251,12 +256,11 @@ def delete_item(item_id):
 @app.route("/update_item/<item_id>", methods=['POST'])
 def update_item(item_id):
     """Update item"""
-    
-    input_item_id = 'edit_grocery'+item_id
-    update_item = request.form.get(input_item_id)
+    update_item = request.json.get("name")
     crud.update_item(item_id, update_item)
+    response = {"success":True}
     
-    return redirect("/shoppinglist")
+    return jsonify(response)
 
 @app.route("/map")
 def view_stores_map():

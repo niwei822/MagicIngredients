@@ -18,7 +18,7 @@
 }
 
 .side-image {
-    background-image: url("bg1.jpg");
+    background-image: url("Magic.gif");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -31,15 +31,6 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-.text p {
-    color: green;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-style: oblique;
-    font-size: 20px;
-    text-align: center;
-    margin-bottom: 120px;
 }
 
 .right {
@@ -58,6 +49,7 @@
     font-weight: 700;
     text-align: center;
     margin-bottom: 45px;
+    color: rgba(192,229,205,255);
 }
 
 .input-field {
@@ -112,7 +104,7 @@
 }
 
 .submit:hover {
-    background: rgba(48, 200, 66, 0.9);
+    background: rgba(192,229,205,255);
     color: #fff;
 }
 
@@ -126,7 +118,7 @@
 
 #signin:hover {
     border: none;
-    background: rgba(48, 200, 66, 0.9);
+    background: rgba(192,229,205,255);
     color: #fff;
 }
 
@@ -354,8 +346,6 @@ justify-content: center;
 align-items: center;
 background: white;
 }
-
-
 
 #mysearch {
    position: absolute;
