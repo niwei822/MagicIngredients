@@ -130,6 +130,13 @@
     }
 }
 
+.modal-header img {
+    height: 15%;
+    width: 15%;
+    background-color: inherit;
+    margin-right: 20px;
+}
+
 .modal-content {
     width: 80%;
     margin: 0px auto;

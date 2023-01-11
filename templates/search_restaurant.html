@@ -9,18 +9,8 @@
 <div class="restaurant_area">
     <div class="container">
         <div>
-            Search for {{ recipe_name }}
+            Results of restaurant search  {{ recipe_name }}
         </div>
-        <form action="/search_restaurant/{{ recipe_id }}" method="POST" autocomplete="off">
-            <div class="search_rest">
-
-                <div class="search_input">
-                    <input type="text" name="search_rest" id="mysearch" placeholder="Enter zipcode...">
-                    <span class="clear" onclick="document.getElementById('mysearch').value = ''"></span>
-                </div>
-            </div>
-            <button type="submit" id="fav-search"><i class="fa fa-search"></i></button>
-        </form>
         <div class="single-restaurant-area">
             <div class="row">
                 {% if restaurants is defined %}

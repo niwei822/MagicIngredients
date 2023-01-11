@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 
 {% block title %}Recipe detail{% endblock %}
+{% block head %}
+<!--CSS style-->
+<link rel="stylesheet" href="/static/css/restaurant.css" />
+{% endblock %}
 
 {% block body %}
 
@@ -30,23 +34,44 @@
                             {% endif %}
                         
                     </div>
+
                     <div>
                         <form action="/search_restaurant/{{ local_recipe_id }}">
-                        <input id="restaurant" type="submit" value="Don't feel like cooking?">
+                            <button type="button" class="btn btn-secondary" id="restaurant" data-bs-toggle="modal"
+                    data-bs-target="#search_rest">Don't feel like cooking?</button>
                     </form>
                     </div>
+                    <!-- Modal -->
+  <div class="modal fade" id="search_rest" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="modal-title">Which restaurants serve the best {{ recipe_title }}? 🧐 </h1>
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="searchbox">
+            <form action="/search_restaurant/{{ local_recipe_id }}" method="POST" autocomplete="off">
+                <div class="search_rest">
+    
+                    <div class="search_input">
+                        <input type="text" name="search_rest" id="mysearch" placeholder="Search by zip code...">
+                        <span class="clear" onclick="document.getElementById('mysearch').value = ''"></span>
+                    </div>
+                </div>
+                <button type="submit" id="fav-search"><i class="fa fa-search"></i></button>
+            </form>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
                 </div>
             </div>
         </div>
-        <!--Save to favorites-->
-         <!--<div class="col-12 col-md-4">
-            <div class="save-favor text-right my-5">
-                <form action="/add_to_favorite/{{ local_recipe_id }}">
-                    <button class="button" id="favor">Save to my favorites</button>
-                </form>
-               
-            </div>
-        </div>-->
         <div class="row">
             <div class="col-12 col-lg-8">
                 <!-- Instructions -->
@@ -93,4 +118,6 @@
     </div>
 </div>
 <script src="/static/js/favorite.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" 
+  integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 {% endblock %}
