@@ -276,7 +276,7 @@ def go_to_search_restaurant(recipe_id):
     return render_template("search_restaurant.html", user=user, user_id=session['user_id'], recipe_name=recipe.recipe_name, recipe_id=recipe_id)
 
 @app.route('/search_restaurant/<recipe_id>', methods=["POST"])
-def search_restaurant_result(recipe_id):
+def show_restaurant_result(recipe_id):
     """search restaurant based on input"""
     recipe  = crud.get_recipe_by_id(recipe_id)
     location = request.form.get("search_rest")

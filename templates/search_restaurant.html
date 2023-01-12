@@ -4,12 +4,15 @@
 {% block head %}
 <!--CSS style-->
 <link rel="stylesheet" href="/static/css/restaurant.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js" crossorigin></script>
+<script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
 {% endblock %}
 {% block body %}
 <div class="restaurant_area">
     <div class="container">
         <div>
-            Results of restaurant search  {{ recipe_name }}
+            Results of restaurant search {{ recipe_name }}
         </div>
         <div class="single-restaurant-area">
             <div class="row">
@@ -34,5 +37,5 @@
     </div>
 </div>
 
-<script src="/static/js/restaurant.js"></script>
+<script src="/static/js/restaurant.jsx"></script>
 {% endblock %}

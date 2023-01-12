@@ -27,23 +27,8 @@ function check_clicked(item_id) {
   document.querySelectorAll("#trash" + item_id).forEach((e) => delete_clicked(e));
 }
 
-// function edit_grocery(evt) {
-//   evt.preventDefault();
-//   const formInputs = {
-//     melon_type: document.querySelector('#melon-type-field').value,
-//     qty: document.querySelector('#qty-field').value,
-//   };
-//   fetch('/order-melons.json', {
-//     method: 'POST',
-//     body: JSON.stringify(formInputs),
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   })
-//     .then((response) => response.json())
-//     .then(updateMelons);
-// }
 function edit_grocery(item_id) {
+
   var item_name = document.querySelector("[data-input-id='" + item_id + "']").innerHTML.replace(/ /g, '\xa0');
   var add_html = '<div><input data-item-id=' + item_id + ' name="edit_grocery' + item_id + '" class="input_area" type="text" value=' + item_name + '><button id= "sub">Save</button></div>'
   document.querySelector("[data-input-id='" + item_id + "']").insertAdjacentHTML('beforebegin', add_html);
@@ -71,21 +56,16 @@ function edit_grocery(item_id) {
         },
       })
         .then((response) => response.json())
-        .then((jsonData) => {
-          //document.querySelector(".grocery_label").value = jsonData.name
-          // document.querySelector(".input_area").remove();
-          // document.querySelector("#sub").remove();
+        .then(() => {
           var updateLabel = `<label class="grocery_label" data-input-id=${item_id} name=${item_id} onclick="edit_grocery(${item_id})">${myInput.value}</label>`
           document.querySelector(".input_area").parentElement.remove();
           checkboxid = ".checkbox" + itemId
           document.querySelector("[id='checkbox" + item_id + "']").insertAdjacentHTML('afterend', updateLabel);
-
         });
     }
   }
   console.log(document.querySelector('#sub'))
   document.querySelector('#sub').addEventListener('click', updateItem);
-
 }
 
 function newItem() {
