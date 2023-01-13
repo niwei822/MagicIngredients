@@ -47,6 +47,19 @@ def create_recipe(recipe_api_id, recipe_name, ingredients, image, steps, total_c
 
     return recipe
 
+def update_fav_recipe(recipe_id, recipe_api_id, recipe_name, new_ingredients, image, new_steps, total_cook_time):
+    """ Update a favorite recipe given recipe_id and the updated information. """
+    
+    recipe_update = Recipe.query.filter(Recipe.recipe_id==recipe_id).first()
+    recipe_update.recipe_api_id = recipe_api_id
+    recipe_update.recipe_name = recipe_name
+    recipe_update.ingredients = new_ingredients
+    recipe_update.image = image
+    recipe_update.steps = new_steps
+    recipe_update.total_cook_time = total_cook_time
+    db.session.commit()
+    return
+
 def get_recipes():
     """Return all recipes."""
 

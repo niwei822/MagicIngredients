@@ -1,7 +1,8 @@
 
 function clickedFav(favBtn) {
     const recipeId = favBtn.getAttribute('data-item-id');
-    favBtn.addEventListener('click', () => {
+    favBtn.addEventListener('click', (e) => {
+        e.preventDefault();
         if (favBtn.style.color == "grey") { 
         fetch(`/add_to_favorite/${recipeId}`, {
             method: 'POST',
@@ -10,6 +11,8 @@ function clickedFav(favBtn) {
             .then((response) => response.json())
             .then(() => {
                 favBtn.style.color = "red";
+                var editbtn = '<div class="col-md-12 text-center"><button id="edit_recipe">Edit this recipe</button></div>'
+                document.querySelector("#recipe-content").insertAdjacentHTML('beforeend', editbtn);
             });
         }
         else {
@@ -19,7 +22,8 @@ function clickedFav(favBtn) {
             })
                 .then((response) => response.json())
                 .then(() => {
-                    favBtn.style.color = "gray";
+                    favBtn.style.color = "grey";
+                    document.querySelector("#edit_recipe").style.display == "none";
                 });
         }
     });

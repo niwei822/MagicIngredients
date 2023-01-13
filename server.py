@@ -268,13 +268,6 @@ def view_stores_map():
     user = crud.get_user_by_id(session['user_id'])
     return render_template("map_stores.html", user=user, user_id=session['user_id'])
 
-@app.route("/search_restaurant/<recipe_id>")
-def go_to_search_restaurant(recipe_id):
-    """Show search restaurant page."""
-    user = crud.get_user_by_id(session['user_id'])
-    recipe  = crud.get_recipe_by_id(recipe_id)
-    return render_template("search_restaurant.html", user=user, user_id=session['user_id'], recipe_name=recipe.recipe_name, recipe_id=recipe_id)
-
 @app.route('/search_restaurant/<recipe_id>', methods=["POST"])
 def show_restaurant_result(recipe_id):
     """search restaurant based on input"""
