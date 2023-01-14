@@ -131,11 +131,9 @@ def show_recipe_detail():
     ingredient_list = response['extendedIngredients']
     ingredients = []
     recipe_ingredient = ""
-    item_ingredient = ""
     for ingredient in ingredient_list:
-        ingredients.append({"ingredient_name": ingredient['original'], "item_name":ingredient['name'], "ingredient_id": ingredient['id'], "ingredient_amount": ingredient['amount']})
+        ingredients.append({"ingredient_name": ingredient['original'], "ingredient_id": ingredient['id'], "ingredient_amount": ingredient['amount']})
         recipe_ingredient += ingredient['original']
-        item_ingredient += ingredient['name']
     
     analyzed_instructions = response['analyzedInstructions']
     if not analyzed_instructions:
@@ -163,6 +161,20 @@ def is_favorite(recipe_id):
         if recipe_id == fav_recipe.recipe_id:
             return True
     return False
+
+@app.route('/edit_fav_recipe/<recipe_id>', methods=["POST"])
+def edit_recipe(recipe_id):
+    """edit steps and ingredients on user's fav recipe"""
+    
+    updated_instructions = request.form.get("edit_steps")
+    updated_ingredients = request.form.get("edit_ingredients")
+   
+    recipe = crud.get_recipe_by_id(recipe_id)
+    recipe_api_id = recipe.recipe_api_id
+    crud.update_fav_recipe(recipe_id, updated_instructions, updated_ingredients)
+    flash("updated!")
+    import pdb; pdb.set_trace()
+    return redirect (f"/recipe?id={recipe_api_id}")
 
 @app.route('/favorites', methods=["GET", "POST"])
 def favorite_recipes():
@@ -220,9 +232,6 @@ def get_shopping_list():
 def add_to_shopping_list():
     """Add to shopping list"""
     items = request.form.getlist('ingredient')
-    # item_names = []
-    # for item in items:
-    #     item_names.append
     shoppinglist = crud.get_shoppinglist_by_user(session['user_id'])
     if not shoppinglist:
         new_shoppinglist = crud.create_shoppinglist(session['user_id'])
