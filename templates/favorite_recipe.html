@@ -30,10 +30,11 @@
                         <img src="{{recipe['image']}}">
                         {% endif %}
                         <div class="recipe-content">
+                          
                             {% if recipe['recipe_name']|length <= 25 %} <a
-                                href="/recipe?id={{ recipe['recipe_id'] }}">{{ recipe['recipe_name'] }}</a>
+                                href="/recipe_fav?id={{ recipe['recipe_id'] }}">{{ recipe['recipe_name'] }}</a>
                                 {% else %}
-                                <a href="/recipe?id={{ recipe['recipe_id'] }}"
+                                <a href="/recipe_fav?id={{ recipe['recipe_id'] }}"
                                     title="{{ recipe['recipe_name'] }}">{{ recipe['recipe_name'][:25] + "..." }}</a>
                                 {% endif %}
                                 <a class="product-favourite-button w-inline-block active"></a>

@@ -110,18 +110,20 @@ def search_recipes():
         return render_template('recipe_results.html', user_id=session['user_id'], recipes=response)    
     else:
         return render_template('recipe_results.html', user_id=session['user_id'], recipes=response)
+ 
+def get_remote_recipe(recipe_id):
+    """Get the recipe from API"""
+    endpoint = f"/{recipe_id}/information"
+    final_url = url1 + endpoint
+    data = {"includeNutrition":"false", "apiKey": API_KEY}
+    response = requests.get(final_url, headers=HEADERS1, params=data).json()
+    return response
     
 @app .route('/recipe')
 def show_recipe_detail():
     """Display recipe detail when click the recipe name."""
     recipe_id = request.args['id']
-    endpoint = f"/{recipe_id}/information"
-    final_url = url1 + endpoint
-    print(final_url)
-    
-    data = {"includeNutrition":"false", "apiKey": API_KEY}
-    response = requests.get(final_url, headers=HEADERS1, params=data).json()
-    print(response)
+    response = get_remote_recipe(recipe_id)
     
     cook_time = response['readyInMinutes']
     recipe_title = response['title']
@@ -132,8 +134,8 @@ def show_recipe_detail():
     ingredients = []
     recipe_ingredient = ""
     for ingredient in ingredient_list:
-        ingredients.append({"ingredient_name": ingredient['original'], "ingredient_id": ingredient['id'], "ingredient_amount": ingredient['amount']})
-        recipe_ingredient += ingredient['original']
+        ingredients.append(ingredient['original'])
+    recipe_ingredient = ",".join(ingredients)
     
     analyzed_instructions = response['analyzedInstructions']
     if not analyzed_instructions:
@@ -152,7 +154,21 @@ def show_recipe_detail():
         db.session.commit()
     local_recipe = crud.get_recipe_by_api_id(recipe_id)
     is_in_favorite = is_favorite(local_recipe.recipe_id)
-    return render_template('recipe_detail.html', is_in_favorite=is_in_favorite, user_id=session['user_id'], recipe=response,cook_time=cook_time, source_url=source_url, recipe_title=recipe_title, recipe_image=recipe_image,ingredients=ingredients, steps=steps, local_recipe_id=local_recipe.recipe_id)
+    return render_template('recipe_detail.html', is_in_favorite=is_in_favorite, user_id=session['user_id'], recipe=response, cook_time=cook_time, source_url=source_url, recipe_title=recipe_title, recipe_image=recipe_image,ingredients=ingredients, steps=steps, local_recipe_id=local_recipe.recipe_id)
+
+@app .route('/recipe_fav')
+def show_fav_recipe_detail():
+    """Display favorite recipe detail when click the recipe name."""
+    recipe_id = request.args['id']
+    local_recipe = crud.get_recipe_by_id(recipe_id)
+    source_url = get_remote_recipe(local_recipe.recipe_api_id)["sourceUrl"]
+    is_in_favorite = is_favorite(local_recipe.recipe_id)
+    cook_time = local_recipe.total_cook_time
+    recipe_title = local_recipe.recipe_name
+    ingredients = local_recipe.ingredients.split(",")
+    steps = local_recipe.steps.split(",")
+    recipe_image = local_recipe.image
+    return render_template('recipe_detail.html', is_in_favorite=is_in_favorite, user_id=session['user_id'], recipe=local_recipe, cook_time=cook_time, source_url=source_url, recipe_title=recipe_title, recipe_image=recipe_image, ingredients=ingredients, steps=steps, local_recipe_id=local_recipe.recipe_id)
 
 def is_favorite(recipe_id):
 
@@ -166,15 +182,11 @@ def is_favorite(recipe_id):
 def edit_recipe(recipe_id):
     """edit steps and ingredients on user's fav recipe"""
     
-    updated_instructions = request.form.get("edit_steps")
-    updated_ingredients = request.form.get("edit_ingredients")
-   
-    recipe = crud.get_recipe_by_id(recipe_id)
-    recipe_api_id = recipe.recipe_api_id
+    updated_instructions = request.form.get("edit_steps").replace("\r\n", ",")
+    updated_ingredients = request.form.get("edit_ingredients").replace("\r\n", ",")
     crud.update_fav_recipe(recipe_id, updated_instructions, updated_ingredients)
     flash("updated!")
-    import pdb; pdb.set_trace()
-    return redirect (f"/recipe?id={recipe_api_id}")
+    return redirect (f"/recipe_fav?id={recipe_id}")
 
 @app.route('/favorites', methods=["GET", "POST"])
 def favorite_recipes():

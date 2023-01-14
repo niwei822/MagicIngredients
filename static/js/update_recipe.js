@@ -15,30 +15,30 @@ function updateRecipe(recipe_id) {
     </div>
     </form>
     </div>`);
-
-    function saveUpdatedRecipe() {
-        var updateInstructions = document.querySelector("#new_steps")
-        var updateIngredients = document.querySelector("#new_ingredients")
-        var recipeId = document.getElementById("edit_fav_recipe").getAttribute('data-recipe-id')
-        if (updateInstructions.value == "" || updateIngredients == "") {
-            alert("Please write something!");
-        }
-        else {
-            document.getElementById("update_content").remove();
-            querySelector(".recipe_steps").insertAdjacentHTML('beforeend',`
-            <ol class="steps">
-            {% if steps is string %}
-            <li> {{steps}} </li>
-            <li><a class="source_url" href="{{source_url}}">Link To The Original Recipe</Source></a> </li>
-            {% else %}
-            {% for step in steps %}
-            <li>
-                {{ step }}
-            </li>
-            {% endfor %}
-            {% endif %}
-        </ol>`
-            );
-    }
 }
-}
+//     function saveUpdatedRecipe() {
+//         var updateInstructions = document.querySelector("#new_steps")
+//         var updateIngredients = document.querySelector("#new_ingredients")
+//         var recipeId = document.getElementById("edit_fav_recipe").getAttribute('data-recipe-id')
+//         if (updateInstructions.value == "" || updateIngredients == "") {
+//             alert("Please write something!");
+//         }
+//         else {
+//             document.getElementById("update_content").remove();
+//             querySelector(".recipe_steps").insertAdjacentHTML('beforeend',`
+//             <ol class="steps">
+//             {% if steps is string %}
+//             <li> {{steps}} </li>
+//             <li><a class="source_url" href="{{source_url}}">Link To The Original Recipe</Source></a> </li>
+//             {% else %}
+//             {% for step in steps %}
+//             <li>
+//                 {{ step }}
+//             </li>
+//             {% endfor %}
+//             {% endif %}
+//         </ol>`
+//             );
+//     }
+// }
+// }

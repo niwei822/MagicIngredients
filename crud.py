@@ -47,7 +47,7 @@ def create_recipe(recipe_api_id, recipe_name, ingredients, image, steps, total_c
 
     return recipe
 
-def update_fav_recipe(recipe_id, new_ingredients, new_steps):
+def update_fav_recipe(recipe_id, new_steps, new_ingredients):
     """ Update a favorite recipe given recipe_id and the updated information. """
     
     recipe_update = Recipe.query.filter(Recipe.recipe_id==recipe_id).first()
