@@ -41,12 +41,16 @@ def register_user():
     user = crud.get_user_by_email(email)
     if user:
         flash("Email already exists. Try again")
+        return redirect("/")
     else:
         user = crud.create_user(username, email, password)
         db.session.add(user)
         db.session.commit()
-        flash("Account created! Please log in.")
-    return redirect("/")
+        session["user_email"] = user.email
+        session["user_id"] = user.user_id
+        session["user_name"] = user.username
+      
+    return redirect(f"/user_home/{user.user_id}")
 
 @app.route("/login", methods=["GET", "POST"])
 def login_user():
@@ -111,7 +115,7 @@ def search_recipes():
     else:
         return render_template('recipe_results.html', user_id=session['user_id'], recipes=response)
  
-def get_remote_recipe(recipe_id):
+def get_api_recipe(recipe_id):
     """Get the recipe from API"""
     endpoint = f"/{recipe_id}/information"
     final_url = url1 + endpoint
@@ -123,7 +127,7 @@ def get_remote_recipe(recipe_id):
 def show_recipe_detail():
     """Display recipe detail when click the recipe name."""
     recipe_id = request.args['id']
-    response = get_remote_recipe(recipe_id)
+    response = get_api_recipe(recipe_id)
     
     cook_time = response['readyInMinutes']
     recipe_title = response['title']
@@ -149,7 +153,7 @@ def show_recipe_detail():
         recipe_steps = ",".join(steps)
     
     if not crud.get_recipe_by_api_id(recipe_id):
-        new_recipe = crud.create_recipe(recipe_id, recipe_title, recipe_ingredient, recipe_image, recipe_steps, cook_time)
+        new_recipe = crud.create_recipe(recipe_id, recipe_title, recipe_ingredient, recipe_image, recipe_steps, cook_time, source_url)
         db.session.add(new_recipe)
         db.session.commit()
     local_recipe = crud.get_recipe_by_api_id(recipe_id)
@@ -161,7 +165,7 @@ def show_fav_recipe_detail():
     """Display favorite recipe detail when click the recipe name."""
     recipe_id = request.args['id']
     local_recipe = crud.get_recipe_by_id(recipe_id)
-    source_url = get_remote_recipe(local_recipe.recipe_api_id)["sourceUrl"]
+    source_url = local_recipe.source_url
     is_in_favorite = is_favorite(local_recipe.recipe_id)
     cook_time = local_recipe.total_cook_time
     recipe_title = local_recipe.recipe_name
@@ -237,7 +241,10 @@ def delete_from_favorite_recipes(recipe_id):
 def get_shopping_list():
     """View shoppinglist."""
     shopping_list = crud.get_shoppinglist_by_user(session['user_id'])
-    items = crud.get_items(shopping_list.shoppinglist_id)
+    if shopping_list:
+        items = crud.get_items(shopping_list.shoppinglist_id)
+    else:
+        items = []
     return render_template("shoppinglist.html", user_id=session['user_id'], items=items)
 
 @app.route("/add_to_shoppinglist", methods=['POST'])
@@ -249,6 +256,7 @@ def add_to_shopping_list():
         new_shoppinglist = crud.create_shoppinglist(session['user_id'])
         db.session.add(new_shoppinglist)
         db.session.commit()
+        shoppinglist = crud.get_shoppinglist_by_user(session['user_id'])
     added_items_list = []
     if crud.get_items(shoppinglist.shoppinglist_id):
         added_items = crud.get_items(shoppinglist.shoppinglist_id)

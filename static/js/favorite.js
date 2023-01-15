@@ -11,8 +11,8 @@ function clickedFav(favBtn) {
             .then((response) => response.json())
             .then(() => {
                 favBtn.style.color = "red";
-                var editbtn = '<div class="col-md-12 text-center"><button id="edit_recipe">Edit this recipe</button></div>'
-                document.querySelector("#recipe-content").insertAdjacentHTML('beforeend', editbtn);
+                var editbtn = `<div class="col-md-12 text-center"><button id="edit_recipe" onclick="updateRecipe('${recipeId}')>Edit this recipe</button></div>`
+                document.querySelector("#instructions").insertAdjacentHTML('beforeend', editbtn);
             });
         }
         else {
@@ -23,7 +23,6 @@ function clickedFav(favBtn) {
                 .then((response) => response.json())
                 .then(() => {
                     favBtn.style.color = "grey";
-                    document.querySelector("#edit_recipe").style.display == "none";
                 });
         }
     });

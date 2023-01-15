@@ -33,7 +33,7 @@ def get_user_by_email(email):
 
 """Recipe CRUD operations."""
 
-def create_recipe(recipe_api_id, recipe_name, ingredients, image, steps, total_cook_time):
+def create_recipe(recipe_api_id, recipe_name, ingredients, image, steps, total_cook_time,  source_url):
     """Create and return a new recipe."""
 
     recipe = Recipe(
@@ -42,7 +42,8 @@ def create_recipe(recipe_api_id, recipe_name, ingredients, image, steps, total_c
         ingredients=ingredients,
         image=image,
         steps=steps,
-        total_cook_time=total_cook_time
+        total_cook_time=total_cook_time,
+        source_url=source_url
     )
 
     return recipe
@@ -70,7 +71,7 @@ def get_recipe_by_api_id(recipe_api_id):
     """Return a recipe by Spoonacular recipe id."""
 
     return Recipe.query.filter_by(recipe_api_id=recipe_api_id).first()
-#not sure need this?
+
 def create_favorite(user_id, recipe_id):
     """Create and return a favorite."""
 
@@ -100,25 +101,23 @@ def delete_favorite_by_recipeid(recipe_id):
 def create_shoppinglist(user_id):
     """Create and return a new shoppinglist."""
 
-    shoppinglist = Shoppinglist(user_id=user_id, add_date=datetime.now())
+    shoppinglist = Shoppinglist(user_id=user_id)
 
     return shoppinglist
 
 def get_shoppinglist_by_user(user_id):
-     """Return all favorite recipes by user."""
+     """Return shoppinglist by user."""
      
      return Shoppinglist.query.filter(Shoppinglist.user_id==user_id).first()
 
 """item CRUD operations."""
 
-def create_item(shoppinglist_id, item, amount=0, is_checked=0):
+def create_item(shoppinglist_id, item):
     """Create and return a new shoppinglist item."""
 
     item = Item(
         shoppinglist_id=shoppinglist_id,
-        item=item,
-        amount=amount,
-        is_checked=is_checked,
+        item=item
     )
 
     return item
@@ -133,13 +132,11 @@ def get_item_by_id(item_id):
 
     return Item.query.get(item_id)
 
-def update_item(item_id, new_item, amount=0, is_checked=0):
+def update_item(item_id, new_item):
     """ Update a shoppinglist item given item_id and the updated information. """
     
     item_update = Item.query.filter(Item.item_id==item_id).first()
     item_update.item = new_item
-    item_update.amount = amount
-    item_update.is_checked = is_checked
     db.session.commit()
     return
 

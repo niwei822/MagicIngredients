@@ -1,6 +1,5 @@
 """Models for recipe searching app."""
 
-from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -34,7 +33,7 @@ class Recipe(db.Model):
     image = db.Column(db.String)
     steps = db.Column(db.Text)
     total_cook_time = db.Column(db.String)
-    
+    source_url = db.Column(db.String)
     def __repr__(self):
         return f'<Recipe recipe_id={self.recipe_id} recipe_api_id={self.recipe_api_id} recipe_name={self.recipe_name} ingredients={self.ingredients} steps={self.steps}>'
     
@@ -63,13 +62,11 @@ class Shoppinglist(db.Model):
     shoppinglist_id = db.Column(db.Integer,
                         autoincrement=True,
                         primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
-    add_date = db.Column(db.DateTime)
-    
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)    
     user = db.relationship("User", backref="shoppinglists")
 
     def __repr__(self):
-        return f'<Shoppinglist shoppinglist_id={self.shoppinglist_id} add_date={self.add_date}>'
+        return f'<Shoppinglist shoppinglist_id={self.shoppinglist_id}>'
 
 class Item(db.Model):
     """A shopping list item."""    
@@ -81,13 +78,11 @@ class Item(db.Model):
                         primary_key=True)
     shoppinglist_id = db.Column(db.Integer, db.ForeignKey("shoppinglists.shoppinglist_id"), nullable=False)
     item = db.Column(db.String)
-    amount = db.Column(db.String)
-    is_checked = db.Column(db.Boolean)
     
     shoppinglist = db.relationship("Shoppinglist", backref="items")
     
     def __repr__(self):
-        return f'<Item item_id={self.item_id} item={self.item} amount={self.amount} is_checked={self.is_checked}>'
+        return f'<Item item_id={self.item_id} item={self.item}>'
     
 def connect_to_db(flask_app, db_uri="postgresql:///magicingredients", echo=True):
     flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri

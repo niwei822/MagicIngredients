@@ -86,8 +86,8 @@
                     <h4>Instructions:</h4>
                     <p class="recipe_steps">
                     <ol class="steps">
-                        {% if steps is string %}
-                        <li> {{steps}} </li>
+                        {% if steps | length == 1 %}
+                        <li> {{steps[0]}} </li>
                         <li><a class="source_url" href="{{source_url}}">Link To The Original Recipe</Source></a> </li>
                         {% else %}
                         {% for step in steps %}
@@ -101,8 +101,6 @@
                 </div>
                 {% if is_in_favorite %}
                 <div class="col-md-12 text-center"><button id="edit_recipe" onclick="updateRecipe('{{ local_recipe_id }}')" >Edit this recipe</button></div>
-                {% else %}
-                <div class="col-md-12 text-center" hidden><button id="edit_recipe">Edit this recipe</button></div>
                 {% endif %}
             </div>
 
