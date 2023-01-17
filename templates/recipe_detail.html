@@ -91,9 +91,11 @@
                         <li><a class="source_url" href="{{source_url}}">Link To The Original Recipe</Source></a> </li>
                         {% else %}
                         {% for step in steps %}
+                        {% if step %}
                         <li>
                             {{ step }}
                         </li>
+                        {% endif %}
                         {% endfor %}
                         {% endif %}
                     </ol>
@@ -113,11 +115,13 @@
                         <!-- Custom Checkbox -->
 
                         {% for ingredient in ingredients %}
+                        {% if ingredient %}
                         <li>
                             <input type="checkbox" class="custom-control-input" name="ingredient"
                                 value="{{ ingredient }}">
                             <label class="custom-control-label" for="customCheck8">{{ ingredient }}</label>
                         </li>
+                        {% endif %}
                         {% endfor %}
                     </ul>
                     <input type="submit" id="save-sl" value="Add to shopping list">

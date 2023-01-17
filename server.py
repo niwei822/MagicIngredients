@@ -39,8 +39,9 @@ def register_user():
     email = request.form.get("email")
     password = request.form.get("password")
     user = crud.get_user_by_email(email)
-    if user:
-        flash("Email already exists. Try again")
+    user_name = crud.get_user_by_username(username)
+    if user or user_name:
+        flash("Email/username already exists. Try again")
         return redirect("/")
     else:
         user = crud.create_user(username, email, password)
