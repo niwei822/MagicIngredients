@@ -3,8 +3,6 @@
 {% block title %}My favorite recipes{% endblock %}
 
 {% block body %}
-
-<div class="recepie_area">
     <div class="container">
         <form action="/favorites" method="POST" autocomplete="off">
             <div class="search_fav">
@@ -16,13 +14,13 @@
             <button type="submit" id="fav-search"><i class="fa fa-search"></i></button>
         </form>
 
-        <div class="row">
+        <div id="fav-list" class="row mt-4">
             {% if not recipes %}
             <h1>You don't have any favorite recipes</h1>
             {% else %}
             {% for recipe in recipes %}
             <div class="col-xl-4 col-lg-4 col-md-6">
-                <div class="single-receipe-area">
+                <div class="single-receipe-area mt-">
                     <div class="card text-center">
                         {% if not recipe['image'] %}
                         <img src="/static/images/noimage.jpeg">
@@ -51,4 +49,5 @@
         </div>
     </div>
 </div>
+
 {% endblock %}

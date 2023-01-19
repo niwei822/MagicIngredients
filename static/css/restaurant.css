@@ -20,8 +20,6 @@ align-items: center;
 background: white;
 }
 
-
-
 #mysearch {
    position: absolute;
    top: 0;
@@ -89,3 +87,14 @@ img {
     background: #fff;
     box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.2);
 }
+
+.center {
+    height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #dbe4ed; /* Border color is optional */  
+  
+  }
+ 
+  

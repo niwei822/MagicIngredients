@@ -9,7 +9,7 @@
 {% block body %}
 <div class="restaurant_area">
     <div class="container">
-        <div>
+        <div class="col-12 intro-text">
             Results of restaurant search {{ recipe_name }}
         </div>
         <div class="single-restaurant-area">
@@ -18,13 +18,23 @@
                 {% for restaurant in restaurants %}
                 <div class="col-xl-3 col-lg-6 col-md-8">
                     <div class="card text-center">
+                        {% if not restaurant['image_url'] %}
+                        <img class="card-img-top" src="/static/css/noimage.jpeg" alt="...">
+                        {% else %}
                         <img src="{{restaurant['image_url']}}">
+                        {% endif %}
                         <div class="restaurant-content">
-                            <a href="{{ restaurant['url'] }}">{{ restaurant['name'] }}</a>
-                            <p>Rating: {{ restaurant['rating'] }}</p>
-                            <p>{{ restaurant['location']['address1'] }}</p>
-                            <p>Open Now</p>
-                            <p>{{ restaurant['phone'] }}</p>
+                            <h4><a href="{{ restaurant['url'] }}">{{ restaurant['name'] }}</a></h4>
+                            <p>⭐️ : {{ restaurant['rating'] }}</p>
+                            <p>{{ restaurant['location']['address1'] }}<br>
+                                {% if restaurant['location']['address2'] %}
+                                {{ restaurant['location']['address2'] }}
+                                {% endif %} &nbsp;
+                                {{ restaurant['location']['city'] }}&nbsp;{{ restaurant['location']['state'] }}
+                            </p>
+                            {% if restaurant['phone'] %}
+                            <p>☎️ {{ restaurant['phone'] }}</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

@@ -93,7 +93,7 @@ def user_profile(user_id):
     final_url = url1 + endpoint
     data = {"number":"9", "apiKey": API_KEY}
     response = requests.get(final_url, headers=HEADERS1, params=data).json()['recipes']
-    # print(response)
+    # print(response[0]['summary'])
     # print(fav_recipes[0].recipe)
     # print(shoppinglist)
 

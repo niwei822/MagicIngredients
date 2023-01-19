@@ -1,6 +1,7 @@
 * {
     font-family: 'Poppins', sans-serif;
     text-align: center;
+    font-size: 16px;
 }
 
 
@@ -53,11 +54,17 @@ label {
     background-color: inherit;
     width: 50px;
     height: 35px;
-
+    margin-top: 5px;
+    color: #22577a;
 }
 
 .list-item {
     display: flex;
     flex-direction: row;
 
+
+}
+
+.grocery_label {
+    font-size: 20px;
 }

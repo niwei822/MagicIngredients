@@ -6,25 +6,26 @@
 <link rel="stylesheet" href="/static/css/shoppinglist.css" />
 {% endblock %}
 {% block body %}
-<div>
-    <img src="static/css/sl-3.png" alt="">
-</div>
 <div class="container">
-    <ul id="delete_item">
-
+<div>
+    <img src="/static/css/sl-3-re.png" alt="">
+</div>
+<div class="col-12">
+    <div class="col-md-8 offset-md-2">
+    <ul id="list_item">
         {% if not items %}
         <h1>Sorry, you don't have a shopping list yet.</h1>
         <input type="hidden" value="Delete checked items">
         {% else %}
         {% for item in items %}
-        <div class="list-item">
+        <div class="list-item" >
             <input type="checkbox" id="checkbox{{ item.item_id }}" name="item" value="{{ item.item_id }}"
                 onclick="check_clicked('{{ item.item_id }}')">
             <label class="grocery_label" data-input-id="{{ item.item_id }}" name="{{ item.item_id }}" onclick="edit_grocery('{{ item.item_id }}')">{{ item.item }}</label>
         </div>
         {% endfor %}
         {% endif %}
-
+    </div>
         <div id="add_grocery">
             <form action="/add_to_shoppinglist" method="POST">
                 <input id="grocery_input" class="input_area" type="text" name="ingredient" onkeyup="enable()"
@@ -33,6 +34,7 @@
             </form>
         </div>
     </ul>
+</div>
 </div>
 <script src="/static/js/shoppinglist.js"></script>
 {% endblock %}

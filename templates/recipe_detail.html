@@ -8,14 +8,14 @@
 
 {% block body %}
 
-<div class="container">
+<div class="container text-center">
     <div class="row">
-        <div class="col-12">
-            <div class="recipe_image">
-                <img src="{{ recipe_image }}" alt=" ">
+        <div class="col-md-8 offset-md-2">
+            <div class="recipe_image" >
+                <img class="mx-auto d-block" src="{{ recipe_image }}" alt=" ">
+            </div>
             </div>
         </div>
-    </div>
 </div>
 <!-- Receipe Content Area -->
 <div class="receipe-content-area">
@@ -60,7 +60,6 @@
                                         <form action="/search_restaurant/{{ local_recipe_id }}" method="POST"
                                             autocomplete="off">
                                             <div class="search_rest">
-
                                                 <div class="search_input">
                                                     <input type="text" name="search_rest" id="mysearch"
                                                         placeholder="Search by zip code...">
@@ -80,7 +79,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-12 col-lg-8" id="instructions">
+            <div class="col-12 col-lg-8 mt-4" id="instructions">
                 <!-- Instructions -->
                 <div class="single-preparation-step d-flex">
                     <h4>Instructions:</h4>
@@ -107,7 +106,7 @@
             </div>
 
             <!-- Ingredients -->
-            <div class="col-12 col-lg-4" id="ingredients">
+            <div class="col-12 col-lg-4 mt-4" id="ingredients">
                 <h4 style="margin-right: 40px">Ingredients:</h4>
                 <form action="/add_to_shoppinglist" class="custom-control custom-checkbox" id="ingredients-checkbox"
                     method="POST">

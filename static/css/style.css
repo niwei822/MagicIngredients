@@ -49,7 +49,7 @@
     font-weight: 700;
     text-align: center;
     margin-bottom: 45px;
-    color: rgba(192,229,205,255);
+    color: rgba(192, 229, 205, 255);
 }
 
 .input-field {
@@ -91,7 +91,7 @@
 
 .input-field .input:focus,
 .input-field .input:valid {
-    border-bottom: 1px solid #743ae1;
+    border-bottom: 1px solid #57cc99;
 }
 
 .submit {
@@ -104,7 +104,7 @@
 }
 
 .submit:hover {
-    background: rgba(192,229,205,255);
+    background: rgba(192, 229, 205, 255);
     color: #fff;
 }
 
@@ -112,20 +112,21 @@
     text-align: center;
     font-size: small;
     margin-top: 25px;
-    color: darkgreen;
+    color: #22577a;
     font-size: 15px;
 }
 
 #signin:hover {
     border: none;
-    background: rgba(192,229,205,255);
+    background: rgba(192, 229, 205, 255);
     color: #fff;
 }
 
 .login-form {
     max-width: 100%;
     padding: 2em;
-    @media (max-width: 576px){
+
+    @media (max-width: 576px) {
         max-width: 90%;
     }
 }
@@ -206,7 +207,7 @@ body {
 }
 
 header {
-    color: darkgreen;
+    color: #38a3a5;
     font-size: 30px;
     display: flex;
     justify-content: center;
@@ -238,7 +239,7 @@ header {
 
 .login-form .btn:hover {
     border: none;
-    background: rgba(48, 200, 66, 0.9);
+    background: #57cc99;
     color: #fff;
 }
 
@@ -261,7 +262,7 @@ i {
     height: 45px;
     outline: none;
     width: 100%;
-    color: darkgreen;
+    color: #22577a;
     background: rgba(255, 255, 255, 0.7);
     cursor: pointer;
     transition: .3s;
@@ -281,6 +282,7 @@ i {
     position: absolute;
     top: 0;
     right: 0;
+    color: #38a3a5;
 }
 
 .section-heading {
@@ -292,8 +294,8 @@ i {
 
 a:hover {
     font-weight: 600;
-    font-size: 15px;
-    color: green;
+    font-size: 14px;
+    color: #38a3a5;
 }
 
 .card {
@@ -302,10 +304,10 @@ a:hover {
     margin-bottom: 20px;
 }
 
-.single-receipe-area a {
+a {
     text-decoration: none;
     white-space: nowrap;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .recepie_area img {
@@ -332,6 +334,7 @@ a:hover {
         margin-bottom: 80px;
     }
 }
+
 .search_fav {
     position: relative;
     width: 360px;
@@ -344,26 +347,27 @@ a:hover {
 }
 
 .search_input {
-position: relative;
-width: 300px;
-height: 40px;
-left: 60px;
-display: flex;
-justify-content: center;
-align-items: center;
-background: white;
+    position: relative;
+    width: 300px;
+    height: 40px;
+    left: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: white;
 }
 
 #mysearch {
-   position: absolute;
-   top: 0;
-   width: 100%;
-   height: 100%;
-   border: none;
-   outline: none;
-   font-size: 18px;
-   padding: 10px 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    padding: 10px 0;
 }
+
 .search_fav .button {
     display: block;
 }
@@ -389,6 +393,7 @@ background: white;
     background: #999;
     transform: rotate(45deg);
 }
+
 .clear::after {
     position: absolute;
     content: '';
@@ -408,6 +413,7 @@ background: white;
     overflow: visible;
 }
 
+
 #fav i:hover {
     cursor: pointer;
 }
@@ -420,9 +426,62 @@ background: white;
 }
 
 .nav-item:hover {
-color: darkgreen;
+    color: #22577a;
 }
 
-#refresh {
-    
+/* Slider */
+.slide-1 {
+    background: linear-gradient(white, rgba(216, 246, 226, 0.5));
+    background-image: url("1.png") ;
 }
+
+.slide {
+    background: linear-gradient(white, rgba(216, 246, 226, 0.5));
+    width: 100%;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+    background-color: #38a3a5;
+    width: 40px;
+    height: 70px;
+    margin: auto;
+}
+
+.recipe-img {
+    position: relative;
+    margin-top: 100px;
+    width: 100%;
+}
+
+.bg-cover {
+    background-position: center !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+}
+
+.cards-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+  }
+  .card img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .card {
+    margin: 0 0.5em;
+    box-shadow: 2px 6px 8px 0 #c7f9cc;
+    border: none;
+    border-radius: 0;
+  }
+  .carousel-inner {
+    padding: 1em;
+  }
+  
+  @media (min-width: 768px) {
+    .card img {
+      height: 11em;
+    }
+  }
+ 
