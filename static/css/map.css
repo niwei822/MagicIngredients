@@ -10,6 +10,7 @@ body {
   height: 100%;
   margin: 0;
   padding: 0 !important;
+  font-family: 'Poppins', sans-serif;
 }
 
 .store-search {
@@ -30,8 +31,8 @@ body {
 #findstores {
   font-size: 16px;
   font-weight: bold;
-  color: darkgreen;
-  margin: auto;
+  color: #468189;
+  text-align: center;
 }
 
 #locationField {
@@ -67,7 +68,6 @@ body {
 
 #pac-input {
   background-color: #fff;
-  font-family: Roboto;
   font-size: 15px;
   font-weight: 300;
   margin-left: 12px;
@@ -75,15 +75,13 @@ body {
   text-overflow: ellipsis;
   width: 400px;
   margin-bottom: -40px;
+  border-radius: 5px;
 }
 
 #pac-input:focus {
-  border-color: #4d90fe;
+  border-color: #468189;
 }
 
-/* .pac-container, .pac-item {
-  width: inherit !important;
-} */
 
 .pac-item-selected {
   height: 50px;

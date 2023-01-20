@@ -6,8 +6,8 @@
 <div class="recepie_area">
     <div class="container">
         <div class="row justify-content-center" style="margin-bottom: 20px">
-            <div class="col-md-12" style="text-align:center">
-                <h3>All matched recipes</h3>
+            <div class="col-md-12 mt-4" style="text-align:center; color: #468189;">
+                <h3>Recipes found</h3>
             </div>
         </div>
 
@@ -18,7 +18,7 @@
                     <div class="card text-center">
                         <img src="{{recipe['image']}}">
                         <div class="recipe-content">
-                            <a href="/recipe?id={{ recipe['id'] }}">{{ recipe['title'] }}</a>
+                            <a href="/recipe?id={{ recipe['id'] }}" style="font-size: 14px;">{{ recipe['title'] }}</a>
                         </div>
                     </div>
                 </div>

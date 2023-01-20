@@ -10,22 +10,22 @@
 
 <div class="container text-center">
     <div class="row">
-        <div class="col-md-8 offset-md-2">
+        <div class="col-md-8 offset-md-2 bg-transparent">
             <div class="recipe_image" >
-                <img class="mx-auto d-block" src="{{ recipe_image }}" alt=" ">
+                <img class="mx-auto d-bloc w-100" src="{{ recipe_image }}" alt=" ">
             </div>
             </div>
         </div>
 </div>
 <!-- Receipe Content Area -->
 <div class="receipe-content-area">
-    <div class="container">
-        <div class="row">
+    <div class="container bg-transparent">
+        <div class="row mt-0 mt-md-5">
             <div class="col-12 col-md-8">
                 <div class="receipe-headline my-5">
                     <h2>{{ recipe_title }}</h2>
                     <div class="cook_time">
-                        <h6>Ready in: {{ cook_time }} minutes</h6>
+                        <h6>🕔 COOKING TIME: {{ cook_time }} minutes</h6>
                         <!--<form action="/add_to_favorite/{{ local_recipe_id }}">-->
                         {% if is_in_favorite %}
                         <Button id="fav"><i class="fas fa-heart" id="heart" data-item-id="{{ local_recipe_id }}"
@@ -78,7 +78,27 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-0 mt-md-5">
+            <!-- Ingredients -->
+            <div class="col-12 col-lg-4 mt-4" id="ingredients">
+                <h4>Ingredients:</h4>
+                <form action="/add_to_shoppinglist" class="custom-control custom-checkbox" id="ingredients-checkbox"
+                    method="POST">
+                    <ul class="ingredients-list">
+                        <!-- Custom Checkbox -->
+                        {% for ingredient in ingredients %}
+                        {% if ingredient %}
+                        <li>
+                            <input type="checkbox" class="custom-control-input" name="ingredient"
+                                value="{{ ingredient }}">
+                            <label class="custom-control-label" for="customCheck8">{{ ingredient }}</label>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                    </ul>
+                    <input type="submit" id="save-sl" value="Add to shopping list">
+                </form>
+            </div>
             <div class="col-12 col-lg-8 mt-4" id="instructions">
                 <!-- Instructions -->
                 <div class="single-preparation-step d-flex">
@@ -104,29 +124,6 @@
                 <div class="col-md-12 text-center"><button id="edit_recipe" onclick="updateRecipe('{{ local_recipe_id }}')" >Edit this recipe</button></div>
                 {% endif %}
             </div>
-
-            <!-- Ingredients -->
-            <div class="col-12 col-lg-4 mt-4" id="ingredients">
-                <h4 style="margin-right: 40px">Ingredients:</h4>
-                <form action="/add_to_shoppinglist" class="custom-control custom-checkbox" id="ingredients-checkbox"
-                    method="POST">
-                    <ul class="ingredients-list">
-                        <!-- Custom Checkbox -->
-
-                        {% for ingredient in ingredients %}
-                        {% if ingredient %}
-                        <li>
-                            <input type="checkbox" class="custom-control-input" name="ingredient"
-                                value="{{ ingredient }}">
-                            <label class="custom-control-label" for="customCheck8">{{ ingredient }}</label>
-                        </li>
-                        {% endif %}
-                        {% endfor %}
-                    </ul>
-                    <input type="submit" id="save-sl" value="Add to shopping list">
-                </form>
-            </div>
-            
         </div>
     </div>
     

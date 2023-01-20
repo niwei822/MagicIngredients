@@ -6,10 +6,10 @@
 <!--<span>Welcome, {{ user.username }} !</span>-->
 <div class="container mt-4">
     <div class="col-md-12" style="text-align:center">
-        <img class="heading text-center" src="/static/css/pantry1.gif">
+        <img class="heading text-center" src="/static/css/pantry2.gif" width="100%" height="70%" style="margin-top:-50px;">
     </div>
     <form action="/search" method="POST">
-        <div class="search_fav">
+        <div class="search_fav" style="margin-top:-30px; margin-right: 40px;">
             <div class="search-input">
                 <input type="text" name="search" id="mysearch" placeholder="Use , to seperate each ingredient">
                 <span class="clear" onclick="document.getElementById('mysearch').value = ''"></span>
@@ -21,16 +21,15 @@
      
         
         <!-- Hero Slider -->
-        <div id="heroSlider" class="carousel slide" data-bs-ride="carousel">
-            <div class="col-12 intro-text">
+        <div id="heroSlider" class="carousel slide text-center" data-bs-ride="carousel">
+           <!-- <div class="col-12 intro-text">
                 <h1>Explore recipes</h1>
-            </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active text-center bg-cover vh-100 slide-1">
+            </div>-->
+            <div class="carousel-inner bg-transparent" >
+                <div class="carousel-item active text-center bg-cover bg-transparent vh-100 slide-1">
                     <div class="container h-100 d-flex align-items-center justify-content-center">
                         <div class="row justify-content-center">
                             <div class="col-lg-8">
-                                <img class="d-block w-100" src="/static/css/1.png" alt="...">
                                 <div class="carousel-caption d-none d-md-block">
                                     <button id="refresh" onclick="window.location.reload()">See more ideas?</button>
                                 </div>
@@ -44,9 +43,9 @@
                     <div class="cards-wrapper">
                     {% for j in range(3) %}
                         {% if j == 0 %}
-                            <div class="card">
+                            <div class="card w-100">
                         {% else %}
-                            <div class="card d-none d-md-block">
+                            <div class="card d-none d-md-block w-100">
                         {% endif %}
                             {% if 'image' not in recipes[i*3+j] %}
                                 <img class="card-img-top" src="/static/css/noimage.jpeg" alt="...">

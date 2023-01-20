@@ -17,7 +17,7 @@
                 {% if restaurants is defined %}
                 {% for restaurant in restaurants %}
                 <div class="col-xl-3 col-lg-6 col-md-8">
-                    <div class="card text-center">
+                    <div class="card text-center h-100">
                         {% if not restaurant['image_url'] %}
                         <img class="card-img-top" src="/static/css/noimage.jpeg" alt="...">
                         {% else %}
@@ -30,11 +30,11 @@
                                 {% if restaurant['location']['address2'] %}
                                 {{ restaurant['location']['address2'] }}
                                 {% endif %} &nbsp;
-                                {{ restaurant['location']['city'] }}&nbsp;{{ restaurant['location']['state'] }}
+                                {{ restaurant['location']['city'] }}&nbsp;{{ restaurant['location']['state'] }}<br>
+                                {% if restaurant['phone'] %}
+                                ☎️ {{ restaurant['phone'] }}
+                                {% endif %}
                             </p>
-                            {% if restaurant['phone'] %}
-                            <p>☎️ {{ restaurant['phone'] }}</p>
-                            {% endif %}
                         </div>
                     </div>
                 </div>

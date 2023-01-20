@@ -10,12 +10,12 @@ label {
 }
 
 #delete_item {
-    background-color: rgb(213, 236, 223);
+    background-color: #77ACA2;
     padding: 20px;
 }
 
 #grocery {
-    background-color: #01A88A;
+    background-color: #468189;
     color: white;
     font-weight: bold;
     border-radius: 10px;
@@ -46,7 +46,7 @@ label {
 }
 
 #grocery:hover {
-    background-color: darkslategray;
+    background-color: #468189;
 }
 
 .trash {
@@ -67,4 +67,14 @@ label {
 
 .grocery_label {
     font-size: 20px;
+}
+
+#sub {
+    color: #468189;
+    border-radius: 5px;
+    margin-left: 10px;
+}
+
+#checkbox4 {
+    margin-right: 10px;
 }

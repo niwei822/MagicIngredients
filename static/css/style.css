@@ -49,7 +49,7 @@
     font-weight: 700;
     text-align: center;
     margin-bottom: 45px;
-    color: rgba(192, 229, 205, 255);
+    color: #77ACA2;
 }
 
 .input-field {
@@ -85,13 +85,13 @@
 
 .input-field .input:valid~label {
     top: -10px;
-    font-size: 13px;
-    color: #5d5076;
+    font-size: 15px;
+    color: #40414a;
 }
 
 .input-field .input:focus,
 .input-field .input:valid {
-    border-bottom: 1px solid #57cc99;
+    border-bottom: 1px solid #77ACA2;
 }
 
 .submit {
@@ -104,7 +104,7 @@
 }
 
 .submit:hover {
-    background: rgba(192, 229, 205, 255);
+    background: #77ACA2;
     color: #fff;
 }
 
@@ -112,13 +112,13 @@
     text-align: center;
     font-size: small;
     margin-top: 25px;
-    color: #22577a;
+    color: #77ACA2;
     font-size: 15px;
 }
 
 #signin:hover {
     border: none;
-    background: rgba(192, 229, 205, 255);
+    background: #77ACA2;
     color: #fff;
 }
 
@@ -141,7 +141,7 @@
 .modal-content {
     width: 80%;
     margin: 0px auto;
-    background-color: rgb(229, 246, 234);
+    background-color: #F4E9CD;
 }
 
 .modal-body {
@@ -184,7 +184,7 @@ span a:hover {
 }
 
 body {
-    background-image: url("background.jpeg");
+    background-image: url("f4e9cd\ .png");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -207,7 +207,7 @@ body {
 }
 
 header {
-    color: #38a3a5;
+    color: #468189;
     font-size: 30px;
     display: flex;
     justify-content: center;
@@ -239,7 +239,7 @@ header {
 
 .login-form .btn:hover {
     border: none;
-    background: #57cc99;
+    background: #77ACA2;
     color: #fff;
 }
 
@@ -262,7 +262,7 @@ i {
     height: 45px;
     outline: none;
     width: 100%;
-    color: #22577a;
+    color: #468189;
     background: rgba(255, 255, 255, 0.7);
     cursor: pointer;
     transition: .3s;
@@ -272,17 +272,9 @@ i {
     position: relative;
 }
 
-.logout {
-    line-height: 12px;
-    width: 18px;
-    font-size: 8pt;
-    font-family: tahoma;
-    margin-top: 1px;
-    margin-right: 2px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    color: #38a3a5;
+#logout {
+    background-color: #468189;
+    color: white;
 }
 
 .section-heading {
@@ -294,8 +286,8 @@ i {
 
 a:hover {
     font-weight: 600;
-    font-size: 14px;
-    color: #38a3a5;
+    font-size: 15px;
+    color: #468189;
 }
 
 .card {
@@ -307,7 +299,7 @@ a:hover {
 a {
     text-decoration: none;
     white-space: nowrap;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .recepie_area img {
@@ -319,8 +311,6 @@ a {
     width: 900px;
     height: 100%;
     border-radius: 10px;
-    background: #fff;
-    box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.2);
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -337,7 +327,7 @@ a {
 
 .search_fav {
     position: relative;
-    width: 360px;
+    width: 460px;
     height: 40px;
     background: #fff;
     border-radius: 60px;
@@ -348,13 +338,14 @@ a {
 
 .search_input {
     position: relative;
-    width: 300px;
+    width: 400px;
     height: 40px;
     left: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
     background: white;
+  
 }
 
 #mysearch {
@@ -366,6 +357,7 @@ a {
     outline: none;
     font-size: 18px;
     padding: 10px 0;
+    margin-left: 20px;
 }
 
 .search_fav .button {
@@ -426,23 +418,23 @@ a {
 }
 
 .nav-item:hover {
-    color: #22577a;
+    color: #468189;
 }
 
 /* Slider */
 .slide-1 {
-    background: linear-gradient(white, rgba(216, 246, 226, 0.5));
-    background-image: url("1.png") ;
+   
+    background-image: url("MI.png") ;
 }
 
 .slide {
-    background: linear-gradient(white, rgba(216, 246, 226, 0.5));
+    background: linear-gradient(#9DBEBB, #77ACA2);
     width: 100%;
 }
 
 .carousel-control-prev,
 .carousel-control-next {
-    background-color: #38a3a5;
+    background-color: inherit;
     width: 40px;
     height: 70px;
     margin: auto;
@@ -463,17 +455,18 @@ a {
 .cards-wrapper {
     display: flex;
     justify-content: center;
-    margin-top: 200px;
+    margin-top: 220px;
+    
   }
   .card img {
     max-width: 100%;
     max-height: 100%;
   }
+
   .card {
-    margin: 0 0.5em;
-    box-shadow: 2px 6px 8px 0 #c7f9cc;
+    box-shadow: 2px 6px 8px 0 #F4E9CD;
     border: none;
-    border-radius: 0;
+    border-radius: 10px;
   }
   .carousel-inner {
     padding: 1em;
@@ -485,3 +478,26 @@ a {
     }
   }
  
+  .card-text {
+    font-size: 12px;
+  }
+
+  
+footer.x-colophon {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    width: 100%;
+    font-size: small;
+    text-align: center;
+}
+.x-main{
+    min-height: calc(100vh - 95px);
+}
+
+#refresh {
+    color: #468189;
+    background-color: #F4E9CD;
+    border-radius: 5px;
+}

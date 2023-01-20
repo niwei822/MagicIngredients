@@ -30,7 +30,7 @@ function check_clicked(item_id) {
 function edit_grocery(item_id) {
 
   var item_name = document.querySelector("[data-input-id='" + item_id + "']").innerHTML.replace(/ /g, '\xa0');
-  var add_html = '<div><input data-item-id=' + item_id + ' name="edit_grocery' + item_id + '" class="input_area" type="text" value=' + item_name + '><button id= "sub">Save</button></div>'
+  var add_html = '<div><input data-item-id=' + item_id + ' name="edit_grocery' + item_id + '" class="input_area" type="text" value=' + item_name + '><button id="sub">Save</button></div>'
   document.querySelector("[data-input-id='" + item_id + "']").insertAdjacentHTML('beforebegin', add_html);
   document.querySelector("[data-input-id='" + item_id + "']").remove();
 

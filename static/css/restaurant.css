@@ -83,9 +83,6 @@ img {
 .row {
     width: 1000px;
     height: 100%;
-    border-radius: 10px;
-    background: #fff;
-    box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.2);
 }
 
 .center {
@@ -93,8 +90,9 @@ img {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 3px solid #dbe4ed; /* Border color is optional */  
+    border: 3px solid #dbe4ed; 
   
   }
- 
-  
+.restaurant-content {
+    font-size: small;
+}
