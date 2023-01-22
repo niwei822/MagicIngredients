@@ -18,7 +18,11 @@
                     <div class="card text-center">
                         <img src="{{recipe['image']}}">
                         <div class="recipe-content">
-                            <a href="/recipe?id={{ recipe['id'] }}" style="font-size: 14px;">{{ recipe['title'] }}</a>
+                            {% if recipe['title']|length <= 25 %} 
+                                <a href="/recipe?id={{ recipe['id'] }}" style="font-size: 14px;">{{ recipe['title'] }}</a>
+                            {% else %}
+                                <a href="/recipe?id={{ recipe['id'] }}" style="font-size: 14px;">{{ recipe['title'][:25] + "..." }}</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

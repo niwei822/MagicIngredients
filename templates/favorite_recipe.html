@@ -21,25 +21,29 @@
             {% for recipe in recipes %}
             <div class="col-xl-4 col-lg-4 col-md-8">
                 <div class="single-receipe-area" style="margin-top: 20px;">
-                    <div class="card text-center" >
+                    <div class="card text-center image_wrapper" >
                         {% if not recipe['image'] %}
-                        <img src="/static/images/noimage.jpeg">
+                        <img src="/static/css/noimage.jpeg" class="card-img-top">
+                        <div class="overlay overlay_0">
+                            <form action="/delete_from_favorite/{{ recipe['recipe_id'] }}">
+                                <Button id="fav"><i class="fas fa-heart" id="red_heart" style="color: red;"></i></Button>
+                            </form>
+                        </div>
                         {% else %}
-                        <img src="{{recipe['image']}}">
+                        <img src="{{recipe['image']}}" class="card-img-top">
+                        <div class="overlay overlay_0">
+                            <form action="/delete_from_favorite/{{ recipe['recipe_id'] }}">
+                                <Button id="fav"><i class="fas fa-heart" id="red_heart" style="color: red;"></i></Button>
+                            </form>
+                        </div>
                         {% endif %}
-                        <div class="recipe-content">
-                          
-                            {% if recipe['recipe_name']|length <= 25 %} <a
-                                href="/recipe_fav?id={{ recipe['recipe_id'] }}">{{ recipe['recipe_name'] }}</a>
-                                {% else %}
+                        <div class="recipe-content" style="margin-top: 5px; margin-bottom: 20px">
+                            {% if recipe['recipe_name']|length <= 25 %} 
+                                <a href="/recipe_fav?id={{ recipe['recipe_id'] }}">{{ recipe['recipe_name'] }}</a>
+                            {% else %}
                                 <a href="/recipe_fav?id={{ recipe['recipe_id'] }}"
                                     title="{{ recipe['recipe_name'] }}">{{ recipe['recipe_name'][:25] + "..." }}</a>
-                                {% endif %}
-                                <a class="product-favourite-button w-inline-block active"></a>
-                                <form action="/delete_from_favorite/{{ recipe['recipe_id'] }}">
-                                    <Button id="fav"><i class="fas fa-heart" id="red_heart"
-                                            style="color: red;"></i></Button>
-                                </form>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

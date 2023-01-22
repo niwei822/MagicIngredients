@@ -9,8 +9,8 @@ function updateRecipe(recipe_id) {
     <div id="update_content" class="container" text-center>
     <form id="edit_fav_recipe" data-recipe-id= "${recipe_id}" action="/edit_fav_recipe/${recipe_id}" method="POST">
     <div class="row">
-    <div class="col-6"><textarea id="new_steps" name="edit_steps" class="input_area" type="text" style="width:80%; height: 400px; margin-left: 40px">${instructions}</textarea></div>
     <div class="col-6"><textarea id="new_ingredients" name="edit_ingredients" class="input_area" type="text" style="width:80%; height: 400px; margin-left: 40px">${ingredients}</textarea></div>
+    <div class="col-6"><textarea id="new_steps" name="edit_steps" class="input_area" type="text" style="width:80%; height: 400px; margin-left: 40px">${instructions}</textarea></div>
     <p style="margin-left: 40px; margin-top: 20px"><button class="text-center" id="save_update">Save</button></p> 
     </div>
     </form>

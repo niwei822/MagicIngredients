@@ -96,3 +96,13 @@ img {
 .restaurant-content {
     font-size: small;
 }
+
+.detail-btn {
+    color: #F4E9CD;
+    background-color: #468189;
+    border-radius: 5px;
+}
+
+#fav {
+    margin-left: 45%;
+}

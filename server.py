@@ -132,7 +132,10 @@ def show_recipe_detail():
     
     cook_time = response['readyInMinutes']
     recipe_title = response['title']
-    recipe_image = response['image']
+    if response.get('image'):
+        recipe_image = response['image']
+    else:
+        recipe_image = None
     source_name = response['sourceName']
     source_url = response['sourceUrl']
     ingredient_list = response['extendedIngredients']
@@ -151,7 +154,7 @@ def show_recipe_detail():
         steps = []
         for step in instructions:
             steps.append(step['step'])
-        recipe_steps = ",".join(steps)
+        recipe_steps = "**".join(steps)
     
     if not crud.get_recipe_by_api_id(recipe_id):
         new_recipe = crud.create_recipe(recipe_id, recipe_title, recipe_ingredient, recipe_image, recipe_steps, cook_time, source_url)
@@ -171,7 +174,8 @@ def show_fav_recipe_detail():
     cook_time = local_recipe.total_cook_time
     recipe_title = local_recipe.recipe_name
     ingredients = local_recipe.ingredients.split(",")
-    steps = local_recipe.steps.split(",")
+    steps = local_recipe.steps.split("**")
+    print(steps)
     recipe_image = local_recipe.image
     return render_template('recipe_detail.html', is_in_favorite=is_in_favorite, user_id=session['user_id'], recipe=local_recipe, cook_time=cook_time, source_url=source_url, recipe_title=recipe_title, recipe_image=recipe_image, ingredients=ingredients, steps=steps, local_recipe_id=local_recipe.recipe_id)
 
@@ -187,7 +191,7 @@ def is_favorite(recipe_id):
 def edit_recipe(recipe_id):
     """edit steps and ingredients on user's fav recipe"""
     
-    updated_instructions = request.form.get("edit_steps").replace("\r\n", ",")
+    updated_instructions = request.form.get("edit_steps").replace("\r\n", "**")
     updated_ingredients = request.form.get("edit_ingredients").replace("\r\n", ",")
     crud.update_fav_recipe(recipe_id, updated_instructions, updated_ingredients)
     flash("updated!")

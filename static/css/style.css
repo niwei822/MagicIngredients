@@ -9,12 +9,42 @@
     min-height: 100vh;
 }
 
+.image_wrapper {
+    position: relative;
+  }
+  
+  img {
+    display: block;
+    object-fit: cover;
+    width: 100%;
+    height: auto;
+  }
+  
+  .overlay {
+    position: relative; 
+  }
+  
+  .overlay_0 {
+    left: 10;
+    top: 50;
+    padding: -10rem;
+    margin: -10px;
+    
+  }
+
 .wrapper .row {
     width: 900px;
     height: 550px;
     border-radius: 10px;
     background: #fff;
     box-shadow: 5px 5px 10px 1px rgba(0, 0, 0, 0.2);
+}
+
+.rounded-12 {
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    border-bottom-left-radius: 12px;
 }
 
 .side-image {
@@ -455,7 +485,7 @@ a {
 .cards-wrapper {
     display: flex;
     justify-content: center;
-    margin-top: 220px;
+    margin-top: 10px;
     
   }
   .card img {

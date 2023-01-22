@@ -4,42 +4,46 @@
 {% block head %}
 <!--CSS style-->
 <link rel="stylesheet" href="/static/css/restaurant.css" />
+<link href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block body %}
 
 <div class="container text-center">
     <div class="row">
-        <div class="col-md-8 offset-md-2 bg-transparent">
-            <div class="recipe_image" >
-                <img class="mx-auto d-bloc w-100" src="{{ recipe_image }}" alt=" ">
-            </div>
+            <div class="recipe_image rounded-12" >
+                {% if recipe_image %}
+                    <img class="mx-auto d-bloc w-100" src="{{ recipe_image }}" alt=" ">
+                {% else %}
+                    <img class="mx-auto d-bloc w-100" src="/static/css/noimage.jpeg" alt=" ">
+                {% endif %}
             </div>
         </div>
-</div>
+    </div>
 <!-- Receipe Content Area -->
 <div class="receipe-content-area">
     <div class="container bg-transparent">
         <div class="row mt-0 mt-md-5">
             <div class="col-12 col-md-8">
-                <div class="receipe-headline my-5">
+                <div class="receipe-headline">
                     <h2>{{ recipe_title }}</h2>
                     <div class="cook_time">
                         <h6>🕔 COOKING TIME: {{ cook_time }} minutes</h6>
                         <!--<form action="/add_to_favorite/{{ local_recipe_id }}">-->
-                        {% if is_in_favorite %}
+                    </div>
+                    <div class="ms-auto">
+                    {% if is_in_favorite %}
                         <Button id="fav"><i class="fas fa-heart" id="heart" data-item-id="{{ local_recipe_id }}"
                                 style="color: red;""></i></Button>
+                        
                             {% else %}
                                 <Button id="fav"><i class="fas fa-heart" id="heart"
                                     data-item-id="{{ local_recipe_id }}" style="color: grey;"></i></Button>
                         {% endif %}
-
                     </div>
-
                     <div>
                         <form action="/search_restaurant/{{ local_recipe_id }}">
-                            <button type="button" class="btn btn-secondary" id="restaurant" data-bs-toggle="modal"
+                            <button type="button" class="btn btn-secondary detail-btn" id="restaurant" data-bs-toggle="modal"
                                 data-bs-target="#search_rest">Don't feel like cooking?</button>
                         </form>
                     </div>
@@ -59,7 +63,7 @@
                                     <div class="searchbox">
                                         <form action="/search_restaurant/{{ local_recipe_id }}" method="POST"
                                             autocomplete="off">
-                                            <div class="search_rest">
+                                            <div class="search_rest" style="margin-left: 20px;">
                                                 <div class="search_input">
                                                     <input type="text" name="search_rest" id="mysearch"
                                                         placeholder="Search by zip code...">
@@ -80,48 +84,52 @@
         </div>
         <div class="row mt-0 mt-md-5">
             <!-- Ingredients -->
-            <div class="col-12 col-lg-4 mt-4" id="ingredients">
+            <div class="col-12 col-lg-6" id="ingredients">
                 <h4>Ingredients:</h4>
                 <form action="/add_to_shoppinglist" class="custom-control custom-checkbox" id="ingredients-checkbox"
                     method="POST">
-                    <ul class="ingredients-list">
+                    <div class="ingredients-list d-grid gap-3">
                         <!-- Custom Checkbox -->
                         {% for ingredient in ingredients %}
                         {% if ingredient %}
-                        <li>
+                        <div>
                             <input type="checkbox" class="custom-control-input" name="ingredient"
                                 value="{{ ingredient }}">
                             <label class="custom-control-label" for="customCheck8">{{ ingredient }}</label>
-                        </li>
+                        </div>
                         {% endif %}
                         {% endfor %}
-                    </ul>
-                    <input type="submit" id="save-sl" value="Add to shopping list">
+                    </div>
+                    <br>
+                    <div class="text-center">
+                    <input type="submit" id="save-sl" class="detail-btn" value="Add to shopping list">
+                </div>
                 </form>
+                <br>
             </div>
-            <div class="col-12 col-lg-8 mt-4" id="instructions">
+            <div class="col-6 col-lg-6" id="instructions">
                 <!-- Instructions -->
+                <h4>Instructions:</h4>
                 <div class="single-preparation-step d-flex">
-                    <h4>Instructions:</h4>
                     <p class="recipe_steps">
-                    <ol class="steps">
+                    <ol class="steps d-grid gap-3">
                         {% if steps | length == 1 %}
-                        <li> {{steps[0]}} </li>
-                        <li><a class="source_url" href="{{source_url}}">Link To The Original Recipe</Source></a> </li>
+                            <li> {{steps[0]}} </li>
+                            <li><a class="source_url" href="{{source_url}}">Link To The Original Recipe</Source></a> </li>
                         {% else %}
-                        {% for step in steps %}
-                        {% if step %}
-                        <li>
-                            {{ step }}
-                        </li>
-                        {% endif %}
-                        {% endfor %}
+                            {% for step in steps %}
+                                {% if step %}
+                                    <li>
+                                        {{ step }}
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
                         {% endif %}
                     </ol>
                     </p>
                 </div>
                 {% if is_in_favorite %}
-                <div class="col-md-12 text-center"><button id="edit_recipe" onclick="updateRecipe('{{ local_recipe_id }}')" >Edit this recipe</button></div>
+                <div class="col-md-12 text-center"><button id="edit_recipe" class="detail-btn" onclick="updateRecipe('{{ local_recipe_id }}')" >Edit this recipe</button></div><br>
                 {% endif %}
             </div>
         </div>
