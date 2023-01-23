@@ -11,26 +11,26 @@
 
 .image_wrapper {
     position: relative;
-  }
-  
-  img {
+}
+
+img {
     display: block;
     object-fit: cover;
     width: 100%;
     height: auto;
-  }
-  
-  .overlay {
-    position: relative; 
-  }
-  
-  .overlay_0 {
+}
+
+.overlay {
+    position: relative;
+}
+
+.overlay_0 {
     left: 10;
     top: 50;
     padding: -10rem;
     margin: -10px;
-    
-  }
+
+}
 
 .wrapper .row {
     width: 900px;
@@ -375,7 +375,7 @@ a {
     justify-content: center;
     align-items: center;
     background: white;
-  
+
 }
 
 #mysearch {
@@ -453,8 +453,8 @@ a {
 
 /* Slider */
 .slide-1 {
-   
-    background-image: url("MI.png") ;
+
+    background-image: url("MI.png");
 }
 
 .slide {
@@ -486,44 +486,49 @@ a {
     display: flex;
     justify-content: center;
     margin-top: 10px;
-    
-  }
-  .card img {
+
+}
+
+.card img {
     max-width: 100%;
     max-height: 100%;
-  }
+}
 
-  .card {
+.card {
     box-shadow: 2px 6px 8px 0 #F4E9CD;
     border: none;
     border-radius: 10px;
-  }
-  .carousel-inner {
-    padding: 1em;
-  }
-  
-  @media (min-width: 768px) {
-    .card img {
-      height: 11em;
-    }
-  }
- 
-  .card-text {
-    font-size: 12px;
-  }
-
-  
-footer.x-colophon {
-    bottom: 0;
-    left: 0;
-    right: 0;
-    position: fixed;
-    width: 100%;
-    font-size: small;
-    text-align: center;
 }
-.x-main{
-    min-height: calc(100vh - 95px);
+
+.carousel-inner {
+    padding: 1em;
+}
+
+@media (min-width: 768px) {
+    .card img {
+        height: 11em;
+    }
+}
+
+.card-text {
+    font-size: 12px;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+    padding-bottom: 40px;
+}
+
+body {
+    margin-bottom: 40px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
 }
 
 #refresh {

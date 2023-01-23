@@ -6,19 +6,19 @@
 <link rel="stylesheet" href="/static/css/shoppinglist.css" />
 {% endblock %}
 {% block body %}
-<div class="container" style="background-image: url('/static/css/grocerylist.png'); opacity: .8;">
-<div>
-    <img src="/static/css/sl-3-re.png" alt="">
+<div class="container" style="background-image: url('/static/css/postit.png'); opacity: .8; box-shadow: 2px 6px 8px 0 #9DBEBB;">
+<div class="col-12 grid text-center grocery-list">
+    Grocery List
 </div>
-<div class="col-12">
-    <div class="col-md-8 offset-md-2">
+<div class="col-12 grid text-center" style="--bs-gap: .25rem 1rem; margin-right: 30px;">
+  
     <ul id="list_item">
         {% if not items %}
         <h1>Sorry, you don't have a shopping list yet.</h1>
         <input type="hidden" value="Delete checked items">
         {% else %}
         {% for item in items %}
-        <div class="list-item" >
+        <div class="list-item text-center" style="box-shadow: 4px 8px 8px 0 darkgray;" >
             <input type="checkbox" id="checkbox{{ item.item_id }}" name="item" value="{{ item.item_id }}"
                 onclick="check_clicked('{{ item.item_id }}')">
             <label class="grocery_label" data-input-id="{{ item.item_id }}" name="{{ item.item_id }}" onclick="edit_grocery('{{ item.item_id }}')">{{ item.item }}</label>
@@ -34,7 +34,6 @@
             </form>
         </div>
     </ul>
-</div>
 </div>
 <script src="/static/js/shoppinglist.js"></script>
 {% endblock %}

@@ -67,7 +67,7 @@ def login_user():
             session["user_email"] = user.email
             session["user_id"] = user.user_id
             session["user_name"] = user.username
-            #flash(f"Welcome back. {user.username}")
+            flash(f"Welcome back. {user.username}!")
             return redirect(f"/user_home/{session['user_id']}")
         else:
             flash("Wrong combination.")
@@ -102,7 +102,6 @@ def user_profile(user_id):
 @app.route('/search', methods=["POST"])
 def search_recipes():
     """search recipes based on input ingredients"""
-    #user = crud.get_user_by_id(session['user_id'])
     ingredients = request.form.get("search").replace(",", ",+")
     #print(ingredients)
     endpoint = '/findByIngredients'
@@ -143,11 +142,11 @@ def show_recipe_detail():
     recipe_ingredient = ""
     for ingredient in ingredient_list:
         ingredients.append(ingredient['original'])
-    recipe_ingredient = ",".join(ingredients)
+    recipe_ingredient = "**".join(ingredients)
     
     analyzed_instructions = response['analyzedInstructions']
     if not analyzed_instructions:
-        steps = f"Read the detailed instructions on {source_name} - Click original link below"
+        steps = [f"Read the detailed instructions on {source_name}"]
         recipe_steps = steps
     else:
         instructions = analyzed_instructions[0]['steps']
@@ -173,7 +172,7 @@ def show_fav_recipe_detail():
     is_in_favorite = is_favorite(local_recipe.recipe_id)
     cook_time = local_recipe.total_cook_time
     recipe_title = local_recipe.recipe_name
-    ingredients = local_recipe.ingredients.split(",")
+    ingredients = local_recipe.ingredients.split("**")
     steps = local_recipe.steps.split("**")
     print(steps)
     recipe_image = local_recipe.image
@@ -190,9 +189,8 @@ def is_favorite(recipe_id):
 @app.route('/edit_fav_recipe/<recipe_id>', methods=["POST"])
 def edit_recipe(recipe_id):
     """edit steps and ingredients on user's fav recipe"""
-    
     updated_instructions = request.form.get("edit_steps").replace("\r\n", "**")
-    updated_ingredients = request.form.get("edit_ingredients").replace("\r\n", ",")
+    updated_ingredients = request.form.get("edit_ingredients").replace("\r\n", "**")
     crud.update_fav_recipe(recipe_id, updated_instructions, updated_ingredients)
     flash("updated!")
     return redirect (f"/recipe_fav?id={recipe_id}")

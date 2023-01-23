@@ -3,7 +3,7 @@ function check_clicked(item_id) {
   const checked_label = document.querySelector("[data-input-id='" + item_id + "']");
   if (checked_input.checked) {
     checked_label.style.textDecoration = "line-through";
-    checked_label.style.color = "#01A88A";
+    checked_label.style.color = "#468189";
     var add_html = '<button type="submit" class="trash" id="trash' + item_id + '" data-item-id=' + item_id + '>🗑️</button>'
     document.querySelector("[data-input-id='" + item_id + "']").insertAdjacentHTML('afterend', add_html);
   }
