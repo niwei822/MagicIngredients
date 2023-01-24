@@ -33,7 +33,6 @@ function initMap() {
   places = new google.maps.places.PlacesService(map);
   autocomplete.addListener("place_changed", onPlaceChanged);
 } 
-// When the user selects a city, get the place details for the city and
 // zoom the map in on the city.
 function onPlaceChanged() {
   const place = autocomplete.getPlace();
@@ -71,7 +70,7 @@ function search() {
           animation: google.maps.Animation.DROP,
           icon: markerIcon,
         });
-        // If the user clicks a hotel marker, show the details of that hotel
+        // If the user clicks a marker, show the details of that store
         // in an info window.
         markers[i].placeResult = results[i];
         google.maps.event.addListener(markers[i], "click", showInfoWindow);

@@ -6,34 +6,41 @@
 <link rel="stylesheet" href="/static/css/shoppinglist.css" />
 {% endblock %}
 {% block body %}
-<div class="container" style="background-image: url('/static/css/postit.png'); opacity: .8; box-shadow: 2px 6px 8px 0 #9DBEBB;">
-<div class="col-12 grid text-center grocery-list">
-    Grocery List
-</div>
-<div class="col-12 grid text-center" style="--bs-gap: .25rem 1rem; margin-right: 30px;">
-  
-    <ul id="list_item">
-        {% if not items %}
-        <h1>Sorry, you don't have a shopping list yet.</h1>
-        <input type="hidden" value="Delete checked items">
-        {% else %}
-        {% for item in items %}
-        <div class="list-item text-center" style="box-shadow: 4px 8px 8px 0 darkgray;" >
-            <input type="checkbox" id="checkbox{{ item.item_id }}" name="item" value="{{ item.item_id }}"
-                onclick="check_clicked('{{ item.item_id }}')">
-            <label class="grocery_label" data-input-id="{{ item.item_id }}" name="{{ item.item_id }}" onclick="edit_grocery('{{ item.item_id }}')">{{ item.item }}</label>
+<div class="container-xl position-relative"
+    style="background-image: url('/static/css/postit.png'); opacity: .8; box-shadow: 2px 6px 8px 0 #9DBEBB;">
+    <div class="row">
+        <h1> Grocery List </h1>
+        <div class="col-md-10 text-center">
+
+            <ul id="list_item">
+                {% if not items %}
+                <h1>Sorry, you don't have a shopping list yet.</h1>
+                <input type="hidden" value="Delete checked items">
+                {% else %}
+                {% for item in items %}
+                <div class="list-item text-center" style="box-shadow: 4px 8px 8px 0 darkgray;">
+                    <input type="checkbox" id="checkbox{{ item.item_id }}" name="item" value="{{ item.item_id }}"
+                        onclick="check_clicked('{{ item.item_id }}')">
+                    <label class="grocery_label" data-input-id="{{ item.item_id }}" name="{{ item.item_id }}"
+                        onclick="edit_grocery('{{ item.item_id }}')">{{ item.item }}</label>
+                </div>
+                {% endfor %}
+                {% endif %}
+
+                <div id="add_grocery">
+                    <form action="/add_to_shoppinglist" method="POST">
+                        <input id="grocery_input" class="input_area" type="text" name="ingredient" onkeyup="enable()"
+                            placeholder="Enter grocery...">
+                        <input id="grocery" type="submit" value="Add more grocery" onclick="newItem()">
+                    </form>
+                </div>
+            </ul>
         </div>
-        {% endfor %}
-        {% endif %}
+        <div class="col-md-3 position-absolute bottom-0 end-0">
+            <img src="/static/css/shoppingbag.png">
+        </div>
     </div>
-        <div id="add_grocery">
-            <form action="/add_to_shoppinglist" method="POST">
-                <input id="grocery_input" class="input_area" type="text" name="ingredient" onkeyup="enable()"
-                    placeholder="Enter grocery...">
-                <input id="grocery" type="submit" value="Add more grocery" onclick="newItem()">
-            </form>
-        </div>
-    </ul>
 </div>
+
 <script src="/static/js/shoppinglist.js"></script>
 {% endblock %}
