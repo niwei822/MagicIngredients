@@ -127,6 +127,6 @@ label {
 
 @media screen and (max-width: 800px) {
     img {
-      max-height: 20px;
+      max-height: 0px;
     }
   }

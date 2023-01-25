@@ -50,6 +50,7 @@ def register_user():
         session["user_email"] = user.email
         session["user_id"] = user.user_id
         session["user_name"] = user.username
+        flash(f"Welcome, {user.username}!")
       
     return redirect(f"/user_home/{user.user_id}")
 

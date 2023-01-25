@@ -13,6 +13,18 @@
 </head>
 
 <body style="background-image: url(/static/css/background.jpeg);">
+
+  {% with msg = get_flashed_messages() %}
+      {% if msg %}
+      <script>
+        var msg = {{ msg|tojson }};
+        for (var i=0; i<msg.length; i++) {
+          alert(msg[i]);
+        }
+      </script>
+      {% endif %}
+    {% endwith %}
+
   <div class="wrapper">
     <div class="container main">
       <div class="row">

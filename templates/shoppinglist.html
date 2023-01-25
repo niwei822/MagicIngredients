@@ -6,12 +6,11 @@
 <link rel="stylesheet" href="/static/css/shoppinglist.css" />
 {% endblock %}
 {% block body %}
-<div class="container-xl position-relative"
+<div class="container-lg position-relative"
     style="background-image: url('/static/css/postit.png'); opacity: .8; box-shadow: 2px 6px 8px 0 #9DBEBB;">
     <div class="row">
-        <h1> Grocery List </h1>
+        <div class="text-center"><h1> Grocery List </h1></div>
         <div class="col-md-10 text-center">
-
             <ul id="list_item">
                 {% if not items %}
                 <h1>Sorry, you don't have a shopping list yet.</h1>
@@ -36,7 +35,7 @@
                 </div>
             </ul>
         </div>
-        <div class="col-md-3 position-absolute bottom-0 end-0">
+        <div class="col-md-4 position-absolute bottom-0 end-0">
             <img src="/static/css/shoppingbag.png">
         </div>
     </div>
