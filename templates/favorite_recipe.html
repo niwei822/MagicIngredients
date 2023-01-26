@@ -23,7 +23,7 @@
                 <div class="single-receipe-area" style="margin-top: 20px;">
                     <div class="card text-center image_wrapper" style="box-shadow: 2px 6px 8px 0 #77ACA2;">
                         {% if not recipe['image'] %}
-                        <img src="/static/css/noimage.jpeg" class="card-img-top">
+                        <img src="/static/images/noimage.jpeg" class="card-img-top">
                         <div class="overlay overlay_0">
                             <form action="/delete_from_favorite/{{ recipe['recipe_id'] }}">
                                 <Button id="fav"><i class="fas fa-heart" id="red_heart" style="color: red;"></i></Button>

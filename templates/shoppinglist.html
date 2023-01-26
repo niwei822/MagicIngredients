@@ -7,7 +7,7 @@
 {% endblock %}
 {% block body %}
 <div class="container-lg position-relative"
-    style="background-image: url('/static/css/postit.png'); opacity: .8; box-shadow: 2px 6px 8px 0 #9DBEBB;">
+    style="background-image: url('/static/images/postit.png'); opacity: .8; box-shadow: 2px 6px 8px 0 #9DBEBB;">
     <div class="row">
         <div class="text-center"><h1> Grocery List </h1></div>
         <div class="col-md-10 text-center">
@@ -17,7 +17,7 @@
                 <input type="hidden" value="Delete checked items">
                 {% else %}
                 {% for item in items %}
-                <div class="list-item text-center" style="box-shadow: 4px 8px 8px 0 darkgray;">
+                <div class="list-item text-center" >
                     <input type="checkbox" id="checkbox{{ item.item_id }}" name="item" value="{{ item.item_id }}"
                         onclick="check_clicked('{{ item.item_id }}')">
                     <label class="grocery_label" data-input-id="{{ item.item_id }}" name="{{ item.item_id }}"
@@ -36,7 +36,7 @@
             </ul>
         </div>
         <div class="col-md-4 position-absolute bottom-0 end-0">
-            <img src="/static/css/shoppingbag.png">
+            <img src="/static/images/shoppingbag.png">
         </div>
     </div>
 </div>

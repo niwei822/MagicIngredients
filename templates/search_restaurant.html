@@ -10,7 +10,7 @@
 <div class="restaurant_area">
     <div class="container">
         <div class="col-12 intro-text mb-4 mt-4">
-            Results of restaurant search {{ recipe_name }}
+            Restaurants that offer {{ recipe_name }}
         </div>
         <div class="single-restaurant-area">
             <div class="row">
@@ -19,7 +19,7 @@
                 <div class="col-xl-3 col-lg-4 col-md-8">
                     <div class="card text-center h-100" style="box-shadow: 2px 6px 8px 0 #77ACA2;">
                         {% if not restaurant['image_url'] %}
-                        <img class="card-img-top" src="/static/css/noimage.jpeg" alt="...">
+                        <img class="card-img-top" src="/static/images/noimage.jpeg" alt="...">
                         {% else %}
                         <img src="{{restaurant['image_url']}}">
                         {% endif %}

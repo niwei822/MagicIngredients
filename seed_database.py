@@ -2,8 +2,6 @@
 
 import os
 import json
-from random import choice, randint
-from datetime import datetime
 
 import crud
 import model
@@ -34,8 +32,9 @@ for recipe in recipe_data:
         recipe["instructions"],
         recipe["cookingMinutes"]
     )
-   
-    db_recipe = crud.create_recipe(recipe_api_id, recipe_name, ingredients, image, steps, total_cook_time)
+
+    db_recipe = crud.create_recipe(
+        recipe_api_id, recipe_name, ingredients, image, steps, total_cook_time)
     recipe_in_db.append(db_recipe)
 
 model.db.session.add_all(recipe_in_db)
@@ -44,7 +43,7 @@ model.db.session.commit()
 # Create 10 users
 for n in range(10):
     username = f"user{n}"
-    email = f"user{n}@test.com"  
+    email = f"user{n}@test.com"
     password = "test"
 
     user = crud.create_user(username, email, password)

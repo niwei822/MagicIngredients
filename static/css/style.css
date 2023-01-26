@@ -48,7 +48,7 @@ img {
 }
 
 .side-image {
-    background-image: url("Magic.gif");
+    background-image: url(/static/images/Magic.gif);
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -214,7 +214,7 @@ span a:hover {
 }
 
 body {
-    background-image: url("f4e9cd\ .png");
+    background-image: url(/static/images/f4e9cd\ .png);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -454,7 +454,7 @@ a {
 /* Slider */
 .slide-1 {
 
-    background-image: url("MI.png");
+    background-image: url(/static/images/MI.png);
 }
 
 .slide {
@@ -535,4 +535,12 @@ footer {
     color: #468189;
     background-color: #F4E9CD;
     border-radius: 5px;
+}
+
+.logo-image{
+    width: 60px;
+    height: 46px;
+  
+    overflow: hidden;
+    margin-top: -6px;
 }
