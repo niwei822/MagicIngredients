@@ -23,7 +23,8 @@ Not sure what to cook with limited ingredients? With this application, the user 
 Users are presented with a home page with random recipes displayed in carousels once they have logged in.
 ![random](https://user-images.githubusercontent.com/69645683/215016454-9c31fe0f-db2b-41d4-8032-bdd47fa545ef.gif)
 By entering ingredients, users are able to search for recipes.
-![search ingredients](https://user-images.githubusercontent.com/69645683/215016644-7a49862c-b620-492c-a3cf-ce6dc658217b.gif)
+
+![search ingredients](https://user-images.githubusercontent.com/69645683/215016786-f405fd36-cbbc-4ac6-9cb8-24cbe1a7f79b.gif)
 
 
 ## Installation
