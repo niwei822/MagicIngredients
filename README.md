@@ -45,10 +45,11 @@ Not sure what to cook with limited ingredients? With this application, the user 
 - Clone this repository:
 [Magic Ingredients](https://github.com/niwei822/MagicIngredients)
 - Create and activate a virtual environment, install dependencies.
-```virtualenv env
+```
+virtualenv env
 source env/bin/activate
 pip3 install -r requirements.txt
-- 
+```
 
 
 ## For Version 2.0
