@@ -18,7 +18,7 @@ API: Spoonacular API, Google Places API, Yelp Fusion API
 
 ## Features
 ### Login and Create New Account
-
+![My Image](images/login&register.gif)
 
 ## Installation
 
