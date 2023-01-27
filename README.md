@@ -50,6 +50,26 @@ virtualenv env
 source env/bin/activate
 pip3 install -r requirements.txt
 ```
-
-
+- Add your own API keys to the secrets.sh file for the APIs listed below
+ * [Spoonacular API](https://spoonacular.com/food-api)
+ * [Google Places API](https://developers.google.com/maps/documentation/javascript/get-api-key)
+ * [Yelp Fusion API](https://docs.developer.yelp.com/docs/fusion-intro)
+- Source your secret keys:
+```
+source secrets.sh
+```
+- Create database and run the application
+```
+createdb magic ingredients
+python3 server.py
+```
+- In your prefered web browser, visit:
+```
+http://localhost:5000/
+```
 ## For Version 2.0
+- Add video recipe category by using Youtube API
+- Provide users with the opportunity to rate their favorite recipes
+- Allow users to create and save their own recipes.
+
+
