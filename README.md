@@ -37,6 +37,7 @@ Not sure what to cook with limited ingredients? With this application, the user 
 ![search restaurants](https://user-images.githubusercontent.com/69645683/215018892-71c6dfc0-212f-4c43-9747-8c192161cf1e.gif)
 ### All about shopping list
 - The user may add missing ingredients to the shopping list, as well as their own groceries. In addition, each grocery item can be updated or deleted.
+
 ![shoppinglist](https://user-images.githubusercontent.com/69645683/215020233-67ea9c0d-9d71-4c68-8624-8608c20cb0b7.gif)
 ### Locate grocery stores
 - Users can locate nearby grocery stores with the autocomplete feature of the Google Places API. By entering the zip code or city, stores will be found and custom markers will be displayed. Clicking on a marker will display store details in an info window.
@@ -51,9 +52,9 @@ source env/bin/activate
 pip3 install -r requirements.txt
 ```
 - Add your own API keys to the secrets.sh file for the APIs listed below
- * [Spoonacular API](https://spoonacular.com/food-api)
- * [Google Places API](https://developers.google.com/maps/documentation/javascript/get-api-key)
- * [Yelp Fusion API](https://docs.developer.yelp.com/docs/fusion-intro)
+  * [Spoonacular API](https://spoonacular.com/food-api)
+  * [Google Places API](https://developers.google.com/maps/documentation/javascript/get-api-key)
+  * [Yelp Fusion API](https://docs.developer.yelp.com/docs/fusion-intro)
 - Source your secret keys:
 ```
 source secrets.sh
