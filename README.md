@@ -1,5 +1,5 @@
 # Magic Ingredients
-#### A Hackbright capstone project. Magic Ingredients is a full-stack web application allows users to search for delicious recipes within seconds using limited ingredients, in addition to creating a grocery shopping list/locating the nearest grocery store for later completion.
+A Hackbright capstone project. Magic Ingredients is a full-stack web application allows users to search for delicious recipes within seconds using limited ingredients, in addition to creating a grocery shopping list/locating the nearest grocery store for later completion.
 
 ## Table of Contents
 - [Background](#background)
@@ -36,14 +36,18 @@ Not sure what to cook with limited ingredients? With this application, the user 
 - The "don't feel like cooking" button lets users find restaurants with the most popular menus that match a particular recipe.
 ![search restaurants](https://user-images.githubusercontent.com/69645683/215018892-71c6dfc0-212f-4c43-9747-8c192161cf1e.gif)
 ### All about shopping list
-- The user may add any missing ingredients to the shopping list, as well as their own groceries. In addition, each grocery item can be updated or deleted.
+- The user may add missing ingredients to the shopping list, as well as their own groceries. In addition, each grocery item can be updated or deleted.
 ![shoppinglist](https://user-images.githubusercontent.com/69645683/215020233-67ea9c0d-9d71-4c68-8624-8608c20cb0b7.gif)
 ### Locate grocery stores
 - Users can locate nearby grocery stores with the autocomplete feature of the Google Places API. By entering the zip code or city, stores will be found and custom markers will be displayed. Clicking on a marker will display store details in an info window.
 ![map](https://user-images.githubusercontent.com/69645683/215022047-e625c1e4-fdd1-4137-96d0-8ce89275caed.gif)
 ## Installation
-- Clone or fork this repository:
+- Clone this repository:
 [Magic Ingredients](https://github.com/niwei822/MagicIngredients)
+- Create and activate a virtual environment, install dependencies.
+```virtualenv env
+source env/bin/activate
+pip3 install -r requirements.txt```
 
 
 ## For Version 2.0
