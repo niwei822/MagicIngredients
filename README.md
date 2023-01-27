@@ -70,6 +70,6 @@ http://localhost:5000/
 ## For Version 2.0
 - Add video recipe category by using Youtube API
 - Provide users with the opportunity to rate their favorite recipes
-- Allow users to create and save their own recipes.
+- Allow users to create and save their own recipes
 
 
