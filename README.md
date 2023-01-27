@@ -32,7 +32,10 @@ Not sure what to cook with limited ingredients? With this application, the user 
 ### Edit Recipe
 The user has the option of editing the ingredients and instructions of their favorite recipes.
 ![edit favor](https://user-images.githubusercontent.com/69645683/215018475-834c99e2-c403-4d33-96ab-1138dc786d2d.gif)
-
+### Search for restaurants
+The "don't feel like cooking" button lets users find restaurants with the most popular menus that match a particular recipe.
+![search restaurants](https://user-images.githubusercontent.com/69645683/215018892-71c6dfc0-212f-4c43-9747-8c192161cf1e.gif)
+### 
 
 
 
