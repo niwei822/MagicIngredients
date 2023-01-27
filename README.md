@@ -20,10 +20,9 @@ Not sure what to cook with limited ingredients? With this application, the user 
 ### Login and Create New Account
 ![ezgif com-gif-maker](https://user-images.githubusercontent.com/69645683/215015329-895ff4a8-0ea6-4e72-9b3f-427e22fd7051.gif)
 ### View Random Recipes and Search Recipes by Ingredients
-Users are presented with a home page with random recipes displayed in carousels once they have logged in.
+- Users are presented with a home page with random recipes displayed in carousels once they have logged in.
 ![random](https://user-images.githubusercontent.com/69645683/215016454-9c31fe0f-db2b-41d4-8032-bdd47fa545ef.gif)
-By entering ingredients, users are able to search for recipes.
-
+- By entering ingredients, users are able to search for recipes.
 ![search ingredients](https://user-images.githubusercontent.com/69645683/215016786-f405fd36-cbbc-4ac6-9cb8-24cbe1a7f79b.gif)
 
 
