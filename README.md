@@ -4,7 +4,7 @@
 
 ### Table of Contents
 [Background](#-background)
-[Tech Stack] (#-tech-stack)
+[Tech Stack] (#tech-stack)
 [Features] (#-features)
 [Installation] (#-installation)
 [For Version 2.0] (#-for-version-2.0)
