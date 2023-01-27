@@ -3,11 +3,11 @@
 #### Magic Ingredients allows users to search for delicious recipes within seconds using limited ingredients, in addition to creating a grocery shopping list/locating the nearest grocery store for later completion.
 
 ### Table of Contents
-[Background](#-background)
-[Tech Stack] (#tech-stack)
-[Features] (#-features)
-[Installation] (#-installation)
-[For Version 2.0] (#-for-version-2.0)
+- [Background](#-background)
+- [Tech Stack] (#tech-stack)
+- [Features] (#-features)
+- [Installation] (#-installation)
+- [For Version 2.0] (#-for-version-2.0)
 
 
 
