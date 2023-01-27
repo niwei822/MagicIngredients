@@ -24,6 +24,19 @@ Not sure what to cook with limited ingredients? With this application, the user 
 ![random](https://user-images.githubusercontent.com/69645683/215016454-9c31fe0f-db2b-41d4-8032-bdd47fa545ef.gif)
 - By entering ingredients, users are able to search for recipes.
 ![search ingredients](https://user-images.githubusercontent.com/69645683/215016786-f405fd36-cbbc-4ac6-9cb8-24cbe1a7f79b.gif)
+### Favorites
+- Upon clicking the recipe name, users can toggle the heart button to favorite/unfavorite the recipe.
+![favor:unfavor](https://user-images.githubusercontent.com/69645683/215017949-9aea9e70-1c29-4c70-b3c8-132c6ebbce10.gif)
+- Users may also remove a recipe from their favorites or search for a recipe by entering keywords under the favorites tab.
+![search fav](https://user-images.githubusercontent.com/69645683/215018110-a4aa3c8a-53f5-4bf2-bced-03a73ee8f9cc.gif)
+### Edit Recipe
+The user has the option of editing the ingredients and instructions of their favorite recipes.
+![edit favor](https://user-images.githubusercontent.com/69645683/215018475-834c99e2-c403-4d33-96ab-1138dc786d2d.gif)
+
+
+
+
+
 
 
 ## Installation
