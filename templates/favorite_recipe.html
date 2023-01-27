@@ -2,6 +2,10 @@
 
 {% block title %}My favorite recipes{% endblock %}
 
+{% block head %}
+<link href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" rel="stylesheet"/>
+{% endblock %}
+
 {% block body %}
     <div class="container">
         <form action="/favorites" method="POST" autocomplete="off">
