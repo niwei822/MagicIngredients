@@ -1,5 +1,4 @@
 * {
-    font-family: 'Poppins', sans-serif;
     text-align: center;
     font-size: 16px;
 }
@@ -108,13 +107,12 @@ label {
   }  */
   
   h1 {
-    font-size: 50px;
+    font-size: 40px;
     text-transform: uppercase;
     letter-spacing: -3px;
     transition: 700ms ease;
     font-variation-settings: "wght" 311;
     margin-bottom: 0.8rem;
-    color: #468189;
     outline: none;
     text-align: center;
     font-style: oblique;

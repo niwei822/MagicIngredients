@@ -57,7 +57,7 @@ function edit_grocery(item_id) {
       })
         .then((response) => response.json())
         .then(() => {
-          var updateLabel = `<label class="grocery_label" data-input-id=${item_id} name=${item_id} onclick="edit_grocery(${item_id})">${myInput.value}</label>`
+          var updateLabel = `<label style="font-family: 'Pacifico'; font-size: 22px;" class="grocery_label" data-input-id=${item_id} name=${item_id} onclick="edit_grocery(${item_id})">${myInput.value}</label>`
           document.querySelector(".input_area").parentElement.remove();
           checkboxid = ".checkbox" + itemId
           document.querySelector("[id='checkbox" + item_id + "']").insertAdjacentHTML('afterend', updateLabel);

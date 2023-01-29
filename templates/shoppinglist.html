@@ -9,18 +9,18 @@
 <div class="container-lg position-relative"
     style="background-image: url('/static/images/postit.png'); opacity: .8; box-shadow: 2px 6px 8px 0 #9DBEBB;">
     <div class="row">
-        <div class="text-center"><h1> Grocery List </h1></div>
-        <div class="col-md-10 text-center">
+        <div class="text-center  mt-4"><h1 style="font-family: 'Pacifico';"> Grocery  List </h1></div>
+        <div class="col-md-10 ms-5 text-center">
             <ul id="list_item">
                 {% if not items %}
                 <h1>Sorry, you don't have a shopping list yet.</h1>
                 <input type="hidden" value="Delete checked items">
                 {% else %}
                 {% for item in items %}
-                <div class="list-item text-center" >
+                <div class="list-item text-center">
                     <input type="checkbox" id="checkbox{{ item.item_id }}" name="item" value="{{ item.item_id }}"
                         onclick="check_clicked('{{ item.item_id }}')">
-                    <label class="grocery_label" data-input-id="{{ item.item_id }}" name="{{ item.item_id }}"
+                    <label style="font-family: 'Pacifico';  font-size: 22px;" class="grocery_label" data-input-id="{{ item.item_id }}" name="{{ item.item_id }}"
                         onclick="edit_grocery('{{ item.item_id }}')">{{ item.item }}</label>
                 </div>
                 {% endfor %}
