@@ -12,29 +12,24 @@ app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 
-API_KEY = os.environ['SPOONACULAR_APIKEY']
-API_KEY2 = os.environ['YELP_APIKEY']
-url1 = 'https://api.spoonacular.com/recipes'
-url2 = 'https://api.yelp.com/v3/businesses/search'
-HEADERS1 = {"Content-Type": "application/json"}
-HEADERS2 = {
+# API keys and URLs for spoonacular and Yelp APIs
+API_KEY_SPOONACULAR = os.environ['SPOONACULAR_APIKEY']
+API_KEY_YELP = os.environ['YELP_APIKEY']
+URL_SPOONACULAR = 'https://api.spoonacular.com/recipes'
+URL_YELP = 'https://api.yelp.com/v3/businesses/search'
+HEADERS_SPOONACULAR = {"Content-Type": "application/json"}
+HEADERS_YELP = {
     "accept": "application/json",
-    "Authorization":  'Bearer %s' % API_KEY2}
+    "Authorization":  'Bearer %s' % API_KEY_YELP}
 
 @app.route("/")
 def homepage():
     """View homepage."""
     return render_template("homepage.html")
 
-# @app.route("/users/<user_id>")
-# def show_user(user_id):
-#     """Show details on a particular user."""
-#     user = crud.get_user_by_id(user_id)
-#     return render_template('user_profiles.html', user=user)
-
 @app.route("/users", methods=["POST"])
 def register_user():
-    """Create a new user."""
+    """Create a new user and store their information in the session."""
     username = request.form.get("username")
     email = request.form.get("email")
     password = request.form.get("password")
@@ -43,14 +38,14 @@ def register_user():
     if user or user_name:
         flash("Email/username already exists. Try again")
         return redirect("/")
-    else:
-        user = crud.create_user(username, email, password)
-        db.session.add(user)
-        db.session.commit()
-        session["user_email"] = user.email
-        session["user_id"] = user.user_id
-        session["user_name"] = user.username
-        flash(f"Welcome, {user.username}!")
+    
+    user = crud.create_user(username, email, password)
+    db.session.add(user)
+    db.session.commit()
+    session["user_email"] = user.email
+    session["user_id"] = user.user_id
+    session["user_name"] = user.username
+    flash(f"Welcome, {user.username}!")
       
     return redirect(f"/user_home/{user.user_id}")
 
@@ -59,28 +54,23 @@ def login_user():
     """Login user."""
     if request.method == "GET":
         return redirect("/")
-    else:
-        email = request.form.get("email")
-        password = request.form.get("password")
-        print(f"EMAIL IS {email}")
-        user = crud.get_user_by_email(email)
-        if user and user.password == password:
-            session["user_email"] = user.email
-            session["user_id"] = user.user_id
-            session["user_name"] = user.username
-            flash(f"Welcome back. {user.username}!")
-            return redirect(f"/user_home/{session['user_id']}")
-        else:
-            flash("Wrong combination.")
-            return redirect("/")
+    email = request.form.get("email")
+    password = request.form.get("password")
+    user = crud.get_user_by_email(email)
+    if user and user.password == password:
+        session["user_email"] = user.email
+        session["user_id"] = user.user_id
+        session["user_name"] = user.username
+        flash(f"Welcome back. {user.username}!")
+        return redirect(f"/user_home/{session['user_id']}")
+  
+    flash("Wrong email or password.")
+    return redirect("/")
         
 @app.route("/logout")
-def process_logout():
-    """Delete session and logout user"""
-    del session["user_id"]
-    del session["user_name"]
-    del session["user_email"]
-    
+def logout_user():
+    """Logout user by deleting session information."""
+    session.clear()
     return redirect("/")
 
 @app.route('/user_home/<user_id>')
@@ -91,9 +81,9 @@ def user_profile(user_id):
     #shoppinglist = crud.get_shoppinglist_by_user(user_id)
     """Show random recipes"""
     endpoint = '/random'
-    final_url = url1 + endpoint
-    data = {"number":"9", "apiKey": API_KEY}
-    response = requests.get(final_url, headers=HEADERS1, params=data).json()['recipes']
+    final_url = URL_SPOONACULAR + endpoint
+    data = {"number":"9", "apiKey": API_KEY_SPOONACULAR}
+    response = requests.get(final_url, headers=HEADERS_SPOONACULAR, params=data).json()['recipes']
     # print(response[0]['summary'])
     # print(fav_recipes[0].recipe)
     # print(shoppinglist)
@@ -106,9 +96,9 @@ def search_recipes():
     ingredients = request.form.get("search").replace(",", ",+")
     #print(ingredients)
     endpoint = '/findByIngredients'
-    final_url = url1 + endpoint
-    data = {"ingredients": ingredients, "apiKey": API_KEY}
-    response = requests.get(final_url, headers=HEADERS1, params=data).json()
+    final_url = URL_SPOONACULAR + endpoint
+    data = {"ingredients": ingredients, "apiKey": API_KEY_SPOONACULAR}
+    response = requests.get(final_url, headers=HEADERS_SPOONACULAR, params=data).json()
     #print(response)
     if len(response) == 0:
         flash("No rescipe found") 
@@ -119,9 +109,9 @@ def search_recipes():
 def get_api_recipe(recipe_id):
     """Get the recipe from API"""
     endpoint = f"/{recipe_id}/information"
-    final_url = url1 + endpoint
-    data = {"includeNutrition":"false", "apiKey": API_KEY}
-    response = requests.get(final_url, headers=HEADERS1, params=data).json()
+    final_url = URL_SPOONACULAR + endpoint
+    data = {"includeNutrition":"false", "apiKey": API_KEY_SPOONACULAR}
+    response = requests.get(final_url, headers=HEADERS_SPOONACULAR, params=data).json()
     return response
     
 @app .route('/recipe')
@@ -307,7 +297,7 @@ def show_restaurant_result(recipe_id):
     recipe  = crud.get_recipe_by_id(recipe_id)
     location = request.form.get("search_rest")
     data = {"location": location, "term": recipe.recipe_name, "open_now": True, "sort_by": "rating",}
-    response = requests.get(url2, headers=HEADERS2, params=data).json()
+    response = requests.get(URL_YELP, headers=HEADERS_YELP, params=data).json()
     print(response)
     if len(response) == 0:
         flash("No restaurant found") 
