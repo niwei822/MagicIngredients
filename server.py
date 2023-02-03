@@ -63,8 +63,8 @@ def login_user():
         session["user_name"] = user.username
         flash(f"Welcome back. {user.username}!")
         return redirect(f"/user_home/{session['user_id']}")
-  
     flash("Wrong email or password.")
+    
     return redirect("/")
         
 @app.route("/logout")
@@ -75,37 +75,46 @@ def logout_user():
 
 @app.route('/user_home/<user_id>')
 def user_profile(user_id):
-    """Show the User's homepage after login"""
+    """
+    Show the User's homepage after login
+    Retrieves user information and 9 random recipes.
+    """
     user = crud.get_user_by_id(user_id)
-    #fav_recipes = crud.get_favorite_by_user(user_id)
-    #shoppinglist = crud.get_shoppinglist_by_user(user_id)
-    """Show random recipes"""
+    recipes = retrieve_random_recipes()
+
+    return render_template('user_home.html', user=user, user_id=session['user_id'], recipes=recipes)
+
+def retrieve_random_recipes():
+    """
+    Retrieve 9 random recipes from the API.
+    """
     endpoint = '/random'
     final_url = URL_SPOONACULAR + endpoint
     data = {"number":"9", "apiKey": API_KEY_SPOONACULAR}
-    response = requests.get(final_url, headers=HEADERS_SPOONACULAR, params=data).json()['recipes']
-    # print(response[0]['summary'])
-    # print(fav_recipes[0].recipe)
-    # print(shoppinglist)
-
-    return render_template('user_home.html', user=user, user_id=session['user_id'], recipes=response)
+    response = requests.get(final_url, headers=HEADERS_SPOONACULAR, params=data).json()
+    return response['recipes']
 
 @app.route('/search', methods=["POST"])
 def search_recipes():
-    """search recipes based on input ingredients"""
+    """search recipes based on ingredients"""
     ingredients = request.form.get("search").replace(",", ",+")
-    #print(ingredients)
+    recipes = retrieve_recipes_by_ingredients(ingredients)
+
+    if not recipes:
+        flash("No rescipe found") 
+        return render_template('recipe_results.html', user_id=session['user_id'], recipes=[])    
+    return render_template('recipe_results.html', user_id=session['user_id'], recipes=recipes)
+ 
+def retrieve_recipes_by_ingredients(ingredients):
+    """
+    Retrieve recipes based on ingredients from the API.
+    """
     endpoint = '/findByIngredients'
     final_url = URL_SPOONACULAR + endpoint
     data = {"ingredients": ingredients, "apiKey": API_KEY_SPOONACULAR}
     response = requests.get(final_url, headers=HEADERS_SPOONACULAR, params=data).json()
-    #print(response)
-    if len(response) == 0:
-        flash("No rescipe found") 
-        return render_template('recipe_results.html', user_id=session['user_id'], recipes=response)    
-    else:
-        return render_template('recipe_results.html', user_id=session['user_id'], recipes=response)
- 
+    return response
+    
 def get_api_recipe(recipe_id):
     """Get the recipe from API"""
     endpoint = f"/{recipe_id}/information"
