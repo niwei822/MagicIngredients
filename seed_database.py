@@ -23,17 +23,18 @@ for recipe in recipe_data:
     for item in recipe["extendedIngredients"]:
         ingred.append(item["original"])
     ingreds = ", ".join(ingred)
-    recipe_api_id, recipe_name, ingredients, image, steps, total_cook_time = (
+    recipe_api_id, recipe_name, ingredients, image, steps, total_cook_time, source_url = (
         recipe["id"],
         recipe["title"],
         ingreds,
         recipe["image"],
         recipe["instructions"],
-        recipe["cookingMinutes"]
+        recipe["cookingMinutes"],
+        recipe["sourceUrl"]
     )
 
     db_recipe = crud.create_recipe(
-        recipe_api_id, recipe_name, ingredients, image, steps, total_cook_time)
+        recipe_api_id, recipe_name, ingredients, image, steps, total_cook_time, source_url)
     recipe_in_db.append(db_recipe)
 
 model.db.session.add_all(recipe_in_db)

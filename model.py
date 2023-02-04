@@ -34,6 +34,7 @@ class Recipe(db.Model):
     steps = db.Column(db.Text)
     total_cook_time = db.Column(db.String)
     source_url = db.Column(db.String)
+    
     def __repr__(self):
         return f'<Recipe recipe_id={self.recipe_id} recipe_api_id={self.recipe_api_id} recipe_name={self.recipe_name} ingredients={self.ingredients} steps={self.steps}>'
     
