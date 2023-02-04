@@ -128,13 +128,9 @@ def show_recipe_detail():
     """Display recipe detail when click the recipe name."""
     recipe_id = request.args['id']
     response = get_api_recipe(recipe_id)
-    
     cook_time = response['readyInMinutes']
     recipe_title = response['title']
-    if response.get('image'):
-        recipe_image = response['image']
-    else:
-        recipe_image = None
+    recipe_image = response.get('image', None)
     source_name = response['sourceName']
     source_url = response['sourceUrl']
     ingredient_list = response['extendedIngredients']
@@ -155,7 +151,8 @@ def show_recipe_detail():
             steps.append(step['step'])
         recipe_steps = "**".join(steps)
     
-    if not crud.get_recipe_by_api_id(recipe_id):
+    local_recipe = crud.get_recipe_by_api_id(recipe_id)
+    if not local_recipe:
         new_recipe = crud.create_recipe(recipe_id, recipe_title, recipe_ingredient, recipe_image, recipe_steps, cook_time, source_url)
         db.session.add(new_recipe)
         db.session.commit()
@@ -168,19 +165,21 @@ def show_fav_recipe_detail():
     """Display favorite recipe detail when click the recipe name."""
     recipe_id = request.args['id']
     local_recipe = crud.get_recipe_by_id(recipe_id)
+    
     source_url = local_recipe.source_url
     is_in_favorite = is_favorite(local_recipe.recipe_id)
     cook_time = local_recipe.total_cook_time
     recipe_title = local_recipe.recipe_name
     ingredients = local_recipe.ingredients.split("**")
     steps = local_recipe.steps.split("**")
-    print(steps)
+
     recipe_image = local_recipe.image
     return render_template('recipe_detail.html', is_in_favorite=is_in_favorite, user_id=session['user_id'], recipe=local_recipe, cook_time=cook_time, source_url=source_url, recipe_title=recipe_title, recipe_image=recipe_image, ingredients=ingredients, steps=steps, local_recipe_id=local_recipe.recipe_id)
 
 def is_favorite(recipe_id):
-
+    """Check if the recipe is in the user's favorite list."""
     fav_recipes = crud.get_favorite_by_user(session['user_id'])
+    
     for fav_recipe in fav_recipes:
         if recipe_id == fav_recipe.recipe_id:
             return True
@@ -188,31 +187,41 @@ def is_favorite(recipe_id):
 
 @app.route('/edit_fav_recipe/<recipe_id>', methods=["POST"])
 def edit_recipe(recipe_id):
-    """edit steps and ingredients on user's fav recipe"""
+    """edit steps and ingredients in user's fav recipe"""
     updated_instructions = request.form.get("edit_steps").replace("\r\n", "**")
     updated_ingredients = request.form.get("edit_ingredients").replace("\r\n", "**")
     crud.update_fav_recipe(recipe_id, updated_instructions, updated_ingredients)
-    flash("updated!")
+    flash("Recipe updated!")
     return redirect (f"/recipe_fav?id={recipe_id}")
 
 @app.route('/favorites', methods=["GET", "POST"])
 def favorite_recipes():
-    """display favorite recipes"""
-    """search fav recipes by keyword input"""
+    """
+    Display and search favorite recipes by keyword input
+    """
     if request.method == "GET":
+        # Get all favorite recipes by user ID
         fav_recipes = crud.get_favorite_by_user(session['user_id'])
+        # Create a list to store the recipe objects
         recipes = []
+        
+        # Loop through the favorite recipes and retrieve the recipe details
         if fav_recipes:
             for fav_recipe in fav_recipes:
                 recipe = crud.get_recipe_by_id(fav_recipe.recipe_id)
                 recipes.append(recipe) 
     else:
+        # Get the keyword to search for in the favorite recipes
         search_fav = request.form.get("search_fav")
+        # Get all favorite recipes by user ID
         fav_recipes = crud.get_favorite_by_user(session['user_id'])
+        
         recipes = []
+        
         if fav_recipes:
             for fav_recipe in fav_recipes:
                 recipe = crud.get_recipe_by_id(fav_recipe.recipe_id)
+                
                 if search_fav.lower() in recipe.recipe_name.lower():
                     recipes.append(recipe)
     return render_template('favorite_recipe.html', user_id=session['user_id'], user_name=session['user_name'], recipes=recipes)
@@ -221,17 +230,19 @@ def favorite_recipes():
 def add_to_favorite_recipes(recipe_id):
     """add to favorite recipes"""
     fav = crud.create_favorite(session['user_id'], recipe_id)
+    
     db.session.add(fav)
     db.session.commit()
+    
     response = {"success":True}
     return jsonify(response)
 
 @app.route('/unfavorite/<recipe_id>', methods=['DELETE'])
 def unfavorite_recipe(recipe_id):
     """remove from favorite recipes"""
+    
     crud.delete_favorite_by_recipeid(recipe_id)
     response = {"success":True}
-    
     return jsonify(response)
 
 @app.route('/delete_from_favorite/<recipe_id>')
@@ -243,15 +254,16 @@ def delete_from_favorite_recipes(recipe_id):
 @app.route("/shoppinglist")
 def get_shopping_list():
     """View shoppinglist."""
-    shopping_list = crud.get_shoppinglist_by_user(session['user_id'])
+    user_id = session['user_id']
+    shopping_list = crud.get_shoppinglist_by_user(user_id)
     if shopping_list:
         items = crud.get_items(shopping_list.shoppinglist_id)
     else:
         items = []
-    return render_template("shoppinglist.html", user_id=session['user_id'], items=items)
+    return render_template("shoppinglist.html", user_id=user_id, items=items)
 
 @app.route("/add_to_shoppinglist", methods=['POST'])
-def add_to_shopping_list():
+def add_item_to_shopping_list():
     """Add to shopping list"""
     items = request.form.getlist('ingredient')
     shoppinglist = crud.get_shoppinglist_by_user(session['user_id'])
@@ -279,10 +291,8 @@ def add_to_shopping_list():
 @app.route("/delete_item/<item_id>", methods=['DELETE'])
 def delete_item(item_id):
     """Delete item"""
-    
     crud.delete_item(item_id)
     response = {"success":True}
-    
     return jsonify(response)
 
 @app.route("/update_item/<item_id>", methods=['POST'])
@@ -290,8 +300,7 @@ def update_item(item_id):
     """Update item"""
     update_item = request.json.get("name")
     crud.update_item(item_id, update_item)
-    response = {"success":True}
-    
+    response = {"success":True} 
     return jsonify(response)
 
 @app.route("/map")
@@ -301,20 +310,17 @@ def view_stores_map():
     return render_template("map_stores.html", user=user, user_id=session['user_id'])
 
 @app.route('/search_restaurant/<recipe_id>', methods=["POST"])
-def show_restaurant_result(recipe_id):
+def search_restaurant(recipe_id):
     """search restaurant based on input"""
     recipe  = crud.get_recipe_by_id(recipe_id)
     location = request.form.get("search_rest")
     data = {"location": location, "term": recipe.recipe_name, "open_now": True, "sort_by": "rating",}
     response = requests.get(URL_YELP, headers=HEADERS_YELP, params=data).json()
-    print(response)
-    if len(response) == 0:
+    if not response:
         flash("No restaurant found") 
         return render_template('search_restaurant.html', restaurants=response)
-    else:
-        return render_template('search_restaurant.html', user_id=session['user_id'], recipe_id=recipe_id, recipe_name=recipe.recipe_name, restaurants=response["businesses"])
-
-
+    
+    return render_template('search_restaurant.html', user_id=session['user_id'], recipe_id=recipe_id, recipe_name=recipe.recipe_name, restaurants=response["businesses"])
 
 if __name__ == "__main__":
     connect_to_db(app)
