@@ -13,25 +13,26 @@
 </head>
 
 <body style="background-image: url(/static/images/background.jpeg);">
-
+  <!-- Display flashed messages -->
   {% with msg = get_flashed_messages() %}
-      {% if msg %}
-      <script>
-        var msg = {{ msg|tojson }};
-        for (var i=0; i<msg.length; i++) {
-          alert(msg[i]);
-        }
-      </script>
-      {% endif %}
-    {% endwith %}
+  {% if msg %}
+  <script>
+    var msg = {{ msg| tojson }};
+    for (var i = 0; i < msg.length; i++) {
+      alert(msg[i]);
+    }
+  </script>
+  {% endif %}
+  {% endwith %}
 
   <div class="wrapper">
     <div class="container main">
       <div class="row">
         <div class="col-md-6 side-image">
-          <!------Image-->
+          <!--Image-->
         </div>
         <div class="col-md-6 right">
+          <!-- Sign up form -->
           <form action="/users" method="POST">
             <div class="input-box">
               <header>Create an Account</header>
@@ -51,10 +52,11 @@
                 <input type="submit" class="submit" value="Sign Up">
               </div>
               <div class="signin">
-                <span>Already have an account? <button type="button" class="btn btn-secondary" id="signin" data-bs-toggle="modal"
-                    data-bs-target="#login">
+                <span>Already have an account? <button type="button" class="btn btn-secondary" id="signin"
+                    data-bs-toggle="modal" data-bs-target="#login">
                     Log In
-                  </button></span>
+                  </button>
+                </span>
               </div>
             </div>
           </form>
@@ -62,35 +64,35 @@
       </div>
     </div>
   </div>
-  <!-- Modal -->
+  <!-- Login modal -->
   <div class="modal fade" id="login" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <img src="/static/images/login.png" alt="">
+          <img src="/static/images/login.png" alt="Login">
           <h1 class="modal-title fs-5" id="modal-title">Log in here</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <div class="login-form">
-          <form action="/login" method="POST">
-            <div class="mb-3 mt-3">
-              <input type="email" class="input2" name="email" placeholder="Email">
-            </div>
-            <div class="mb-3 mt-3">
-              <input type="Password" class="input2" name="password" placeholder="Password">
-            </div>
-            <button type="submit" class="btn btn-primary">Log In</button>
-          </form>
-        </div>
+            <form action="/login" method="POST">
+              <div class="mb-3 mt-3">
+                <input type="email" class="input2" name="email" placeholder="Email">
+              </div>
+              <div class="mb-3 mt-3">
+                <input type="Password" class="input2" name="password" placeholder="Password">
+              </div>
+              <button type="submit" class="btn btn-primary">Log In</button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
-          crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>
