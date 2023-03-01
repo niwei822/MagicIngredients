@@ -97,7 +97,8 @@ def connect_to_db(flask_app, db_uri="postgresql:///magicingredients", echo=True)
 
 
 if __name__ == "__main__":
-    #from server import app
+    #initializes a Flask application object
+    #calls the connect_to_db function to connect to the database.
     from flask import Flask
 
     app = Flask(__name__)

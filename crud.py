@@ -8,7 +8,7 @@ def create_user(username, email, password):
     return user
 
 def get_users():
-    """Return a list of all users."""
+    """Return a list of all User instances in the databas."""
     return User.query.all()
 
 def get_user_by_id(user_id):
