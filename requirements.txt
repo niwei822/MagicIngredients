@@ -21,3 +21,4 @@ greenlet==1.1.0
 psycopg2-binary==2.9.3
 SQLAlchemy==1.4.18
 Flask-DebugToolbar==0.11.0
+gunicorn
